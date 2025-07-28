@@ -1,13 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://vhhk10tun4pl"]
+[gd_scene load_steps=3 format=3 uid="uid://cpdon15movtt3"]
 
-[ext_resource type="PackedScene" uid="uid://bcgrj0nswp0rx" path="res://scenes/board.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://ck62ow01180ki" path="res://scripts/chess.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://dd2or4300la6u" path="res://scripts/board.gd" id="2_0wfyh"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_o5qli")
+light_col = Color(0.913725, 0.882353, 0.823529, 1)
+dark_col = Color(0.356995, 0.568913, 0.357718, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(160, 160)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Board" type="Node2D" parent="."]
+script = ExtResource("2_0wfyh")
 
-[node name="Board" parent="." instance=ExtResource("1_o5qli")]
-position = Vector2(160, 160)
+[node name="Pieces" type="Node2D" parent="."]

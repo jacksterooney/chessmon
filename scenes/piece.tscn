@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyjam1umuww8s"]
+
+[ext_resource type="Texture2D" uid="uid://b0ypthguhqv3b" path="res://assets/sprites/pieces/white/king.svg" id="1_gebih"]
+
+[node name="Square" type="Sprite2D"]
+texture = ExtResource("1_gebih")

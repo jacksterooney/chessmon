@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Chessmon"
-run/main_scene="uid://vhhk10tun4pl"
+run/main_scene="uid://cpdon15movtt3"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Piece="*res://scripts/piece.gd"
 
 [display]
 
@@ -29,5 +33,4 @@ enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"

@@ -1,83 +1,77 @@
-class_name Chess extends Sprite2D
+class_name Chess extends Node
 
-const BOARD_SIZE = 8
-const CELL_WIDTH = 40
+## Size of a board square in pixels
+static var SQUARE_SIZE: int = 40
 
-const TEXTURE_HOLDER = preload("res://scenes/texture_holder.tscn")
+@export var light_col: Color
+@export var dark_col: Color
 
-const PIECE_MOVE = preload("res://assets/textures/Chess_test/Piece_move.png")
+@onready var square_scene = preload("res://scenes/square.tscn")
+@onready var piece_scene = preload("res://scenes/piece.tscn")
 
-const TURN_WHITE = preload("res://assets/textures/Chess_test/turn-white.png")
-const TURN_BLACK = preload("res://assets/textures/Chess_test/turn-black.png")
-
+@onready var board = $Board
 @onready var pieces = $Pieces
-@onready var dots = $Dots
-@onready var turn = $Turn
 
-# Variables
-# -6 = black king
-# -5 = black queen etc
-var board: Dictionary[String, Piece]
-var white_to_play: bool = true
-var moves = []
-var selected_piece: Vector2
+const START_FEN: String = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 
-func _ready() -> void:
-	# Rooks
-	board["A1"] = Rook.new(true)
-	board["H1"] = Rook.new(true)
-	board["A8"] = Rook.new(false)
-	board["H8"] = Rook.new(false)
-	
-	# Knights
-	board["B1"] = Knight.new(true)
-	board["G1"] = Knight.new(true)
-	board["B8"] = Knight.new(false)
-	board["G8"] = Knight.new(false)
-	
-	display_board()
+func _ready():
+	load_position_from_fen(START_FEN)
+	create_graphical_board()
 
-func display_board():
-	for file in "ABCDEFGH":
-		for rank in BOARD_SIZE + 1:
-			if !board.has(file + str(rank)):
-				continue
+func create_graphical_board():
+	for file in 8:
+		for rank in 8:
+			var is_light_square: bool = (file + rank) % 2 != 0
+
+			var square_colour := light_col if is_light_square else dark_col
+			var position = Vector2(
+				file * SQUARE_SIZE + (SQUARE_SIZE  / 2),
+				rank * SQUARE_SIZE + (SQUARE_SIZE / 2) 
+				)
 			
-			var piece = board[file + str(rank)]
-			pieces.add_child(piece)
-			piece.global_position = FileRank.to_global_position(file + str(rank))
+			draw_square(square_colour, position)
 
+			draw_pieces()
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton && event.is_pressed():
-		if (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
-			if is_mouse_out(): return
-			var square_x = snapped(get_global_mouse_position().x, 0) / CELL_WIDTH
-			var square_y = abs(snapped(get_global_mouse_position().y, 0) / CELL_WIDTH)
-			var filerank = FileRank.from_vector_2i(Vector2i(square_x, square_y))
-			if !board.has(filerank):
-				return
-			
-			var piece_selected = board[FileRank.from_vector_2i(Vector2i(square_x, square_y))]
-			if (white_to_play && piece_selected != null):
-				print_debug(piece_selected.get_piece_name() + " selected.")
-				show_options()
+func draw_square(square_colour: Color, position: Vector2):
+	var square = square_scene.instantiate() as Sprite2D
+	board.add_child(square)
+	square.position = position
+	square.modulate = square_colour
 
-func is_mouse_out() -> bool:
-	var pos := get_global_mouse_position()
-	return pos.x < 0 or pos.x > (BOARD_SIZE * CELL_WIDTH) or pos.y < 0 or pos.y > (BOARD_SIZE * CELL_WIDTH)
+func draw_pieces():
+	for i in 64:
+		if board.squares[i] == 0:
+			continue
+		var piece = piece_scene.instantiate() as Sprite2D
+		pieces.add_child(piece)
+		piece.position = Board.square_to_position(i)
 
-func show_options():
-	moves = get_moves()
-	if len(moves) > 0:
-		show_dots()
+		piece.texture = Piece.get_sprite_for_piece(board.squares[i])
 
-func show_dots():
-	for i in moves:
-		var holder = TEXTURE_HOLDER.instantiate()
-		dots.add_child(holder)
-		holder.texture = PIECE_MOVE
-		holder.global_position = Vector2(i.y * CELL_WIDTH + (CELL_WIDTH / 2), -i.x * CELL_WIDTH - (CELL_WIDTH / 2))
+func load_position_from_fen(fen: String):
+	var piece_type_from_symbol: Dictionary[String, int] = {
+		'k': Piece.King,
+		'p': Piece.Pawn,
+		'n': Piece.Knight,
+		'b': Piece.Bishop,
+		'r': Piece.Rook,
+		'q': Piece.Queen,
+	}
 
-func get_moves() -> Array:
-	return []
+	var fen_board: String = fen.split(' ')[0]
+	var file := 0
+	var rank := 7
+
+	for symbol in fen_board:
+		if symbol == '/':
+			file = 0
+			rank -= 1
+		else:
+			if symbol.is_valid_int():
+				file += int(symbol)
+			else:
+				var piece_color := Piece.White if symbol == symbol.to_upper() else Piece.Black
+				var piece_type = piece_type_from_symbol[symbol.to_lower()]
+				board.squares[rank * 8 + file] = piece_color | piece_type
+				file += 1
