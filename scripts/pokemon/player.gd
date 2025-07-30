@@ -4,20 +4,26 @@ const TILE_SIZE := 16
 
 @export var walk_speed := 4.0
 
+@onready var anim_tree = $AnimationTree
+@onready var anim_state = anim_tree.get("parameters/playback")
+
 var initial_position := Vector2(0, 0)
 var input_direction := Vector2(0, 0)
 var is_moving := false
 var percent_moved_to_next_tile := 0.0
 
 func _ready() -> void:
+	anim_tree.active = true
 	initial_position = position
 
 func _physics_process(delta: float) -> void:
 	if not is_moving:
 		process_player_input()
 	elif input_direction != Vector2.ZERO:
+		anim_state.travel("Walk")
 		move(delta)
 	else:
+		anim_state.travel("Idle")
 		is_moving = false
 
 func process_player_input():
@@ -27,8 +33,12 @@ func process_player_input():
 		input_direction.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
 
 	if input_direction != Vector2.ZERO:
+		anim_tree.set("parameters/Idle/blend_position", input_direction)
+		anim_tree.set("parameters/Walk/blend_position", input_direction)
 		initial_position = position
 		is_moving = true
+	else:
+		anim_state.travel("Idle")
 
 func move(delta: float):
 	percent_moved_to_next_tile += walk_speed * delta
