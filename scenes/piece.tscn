@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyjam1umuww8s"]
+[gd_scene load_steps=4 format=3 uid="uid://dyjam1umuww8s"]
 
 [ext_resource type="Texture2D" uid="uid://b0ypthguhqv3b" path="res://assets/sprites/pieces/white/king.svg" id="1_gebih"]
+[ext_resource type="Script" uid="uid://c0ttjkni7t50o" path="res://scripts/piece.gd" id="1_s58gp"]
 
-[node name="Square" type="Sprite2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gebih"]
+size = Vector2(40, 40)
+
+[node name="Piece" type="Area2D"]
+script = ExtResource("1_s58gp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_gebih")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gebih")
