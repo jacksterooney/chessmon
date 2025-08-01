@@ -2,6 +2,16 @@ extends CharacterBody2D
 
 const TILE_SIZE := 16
 
+enum PlayerState {
+	IDLE,
+	TURNING,
+	WALKING,
+}
+
+enum FacingDirection {
+	LEFT, RIGHT, UP, DOWN
+}
+
 @export var walk_speed := 4.0
 
 @onready var anim_tree = $AnimationTree
@@ -12,11 +22,16 @@ var input_direction := Vector2(0, 0)
 var is_moving := false
 var percent_moved_to_next_tile := 0.0
 
+var player_state := PlayerState.IDLE
+var facing_direction := FacingDirection.DOWN
+
 func _ready() -> void:
 	anim_tree.active = true
 	initial_position = position
 
 func _physics_process(delta: float) -> void:
+	if player_state == PlayerState.TURNING:
+		return
 	if not is_moving:
 		process_player_input()
 	elif input_direction != Vector2.ZERO:
@@ -35,10 +50,35 @@ func process_player_input():
 	if input_direction != Vector2.ZERO:
 		anim_tree.set("parameters/Idle/blend_position", input_direction)
 		anim_tree.set("parameters/Walk/blend_position", input_direction)
-		initial_position = position
-		is_moving = true
+
+		if need_to_turn():
+			print_debug("player turning")
+			player_state = PlayerState.TURNING
+			anim_tree.set("parameters/Turn/blend_position", input_direction)
+			anim_state.travel("Turn")
+		else:
+			initial_position = position
+			is_moving = true
 	else:
 		anim_state.travel("Idle")
+
+func need_to_turn() -> bool:
+	var new_facing_direction: FacingDirection
+	if input_direction.x < 0:
+		new_facing_direction = FacingDirection.LEFT
+	elif input_direction.x > 0:
+		new_facing_direction = FacingDirection.RIGHT
+	elif input_direction.y < 0:
+		new_facing_direction = FacingDirection.UP
+	elif input_direction.y > 0:
+		new_facing_direction = FacingDirection.DOWN
+	
+	var result = new_facing_direction != facing_direction
+	facing_direction = new_facing_direction
+	return result
+	
+func finished_turning():
+	player_state = PlayerState.IDLE
 
 func move(delta: float):
 	percent_moved_to_next_tile += walk_speed * delta
@@ -48,5 +88,3 @@ func move(delta: float):
 		is_moving = false
 	else:
 		position = initial_position + (TILE_SIZE * input_direction * percent_moved_to_next_tile)
-
-
