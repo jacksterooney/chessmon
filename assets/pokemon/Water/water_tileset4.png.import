@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://igf0kackhm6x"
-path="res://.godot/imported/water_tileset2.png-40d2cfab07698fdc671b8424f7b4b12d.ctex"
+uid="uid://bce44yavmaqnb"
+path="res://.godot/imported/water_tileset4.png-8f5f031a7374f74720fbf7c133929fb9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Water/water_tileset2.png"
-dest_files=["res://.godot/imported/water_tileset2.png-40d2cfab07698fdc671b8424f7b4b12d.ctex"]
+source_file="res://assets/pokemon/Water/water_tileset4.png"
+dest_files=["res://.godot/imported/water_tileset4.png-8f5f031a7374f74720fbf7c133929fb9.ctex"]
 
 [params]
 

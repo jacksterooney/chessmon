@@ -16,6 +16,7 @@ enum FacingDirection {
 
 @onready var anim_tree = $AnimationTree
 @onready var anim_state = anim_tree.get("parameters/playback")
+@onready var ray := $RayCast2D as RayCast2D
 
 var initial_position := Vector2(0, 0)
 var input_direction := Vector2(0, 0)
@@ -50,11 +51,10 @@ func process_player_input():
 	if input_direction != Vector2.ZERO:
 		anim_tree.set("parameters/Idle/blend_position", input_direction)
 		anim_tree.set("parameters/Walk/blend_position", input_direction)
+		anim_tree.set("parameters/Turn/blend_position", input_direction)
 
 		if need_to_turn():
-			print_debug("player turning")
 			player_state = PlayerState.TURNING
-			anim_tree.set("parameters/Turn/blend_position", input_direction)
 			anim_state.travel("Turn")
 		else:
 			initial_position = position
@@ -81,10 +81,16 @@ func finished_turning():
 	player_state = PlayerState.IDLE
 
 func move(delta: float):
-	percent_moved_to_next_tile += walk_speed * delta
-	if percent_moved_to_next_tile >= 1:
-		position = initial_position + (TILE_SIZE * input_direction)
-		percent_moved_to_next_tile = 0
-		is_moving = false
+	var desired_step: Vector2 = input_direction * TILE_SIZE / 2
+	ray.target_position = desired_step
+	if !ray.is_colliding():
+		percent_moved_to_next_tile += walk_speed * delta
+		if percent_moved_to_next_tile >= 1:
+			position = initial_position + (TILE_SIZE * input_direction)
+			percent_moved_to_next_tile = 0
+			is_moving = false
+		else:
+			position = initial_position + (TILE_SIZE * input_direction * percent_moved_to_next_tile)
 	else:
-		position = initial_position + (TILE_SIZE * input_direction * percent_moved_to_next_tile)
+		is_moving = false
+		percent_moved_to_next_tile = 0.0
