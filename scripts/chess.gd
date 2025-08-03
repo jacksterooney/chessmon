@@ -27,7 +27,7 @@ func create_graphical_board():
 			var square_colour := light_col if is_light_square else dark_col
 			var position = Vector2(
 				file * SQUARE_SIZE + (SQUARE_SIZE  / 2),
-				rank * SQUARE_SIZE + (SQUARE_SIZE / 2) 
+				(8 * SQUARE_SIZE) - (rank * SQUARE_SIZE + (SQUARE_SIZE / 2))
 				)
 			
 			draw_square(square_colour, position)
@@ -161,3 +161,21 @@ func on_piece_moved(piece_info: int, old_square: int, new_square: int):
 	board.squares[new_square] = piece_info
 	board.squares[old_square] = 0
 	draw_pieces()
+
+#region Generating Moves
+static var direction_offsets: Array[int] = [
+	-8, 8, -1, 1, -7, 7, -9, 9
+]
+
+static func precomputed_move_data():
+	for file in 8:
+		for rank in 8:
+			var num_north := 7 - rank
+			var num_south := rank
+			var num_west := file
+			var num_east := 7 - file
+
+			var square_index := rank
+
+
+#endregion

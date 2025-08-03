@@ -10,7 +10,7 @@ static func square_to_position(square: int) -> Vector2:
 	var y := square / 8
 	return Vector2(
 		x * Chess.SQUARE_SIZE + (Chess.SQUARE_SIZE  / 2),
-		y * Chess.SQUARE_SIZE + (Chess.SQUARE_SIZE / 2) 
+		(8 * Chess.SQUARE_SIZE) - (y * Chess.SQUARE_SIZE + (Chess.SQUARE_SIZE / 2)) 
 	)
 
 static func position_to_square(pos: Vector2) -> int:
@@ -18,5 +18,5 @@ static func position_to_square(pos: Vector2) -> int:
 		return -1
 	
 	var x := int(pos.x / Chess.SQUARE_SIZE)
-	var y := int(pos.y / Chess.SQUARE_SIZE)
+	var y := 7 - int(pos.y / Chess.SQUARE_SIZE)
 	return x + y * 8
