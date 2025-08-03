@@ -15,6 +15,10 @@ run/main_scene="uid://cpdon15movtt3"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[debug]
+
+gdscript/warnings/integer_division=0
+
 [display]
 
 window/size/viewport_width=480

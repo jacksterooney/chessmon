@@ -6,15 +6,17 @@ func _ready() -> void:
 	squares.resize(64)
 
 static func square_to_position(square: int) -> Vector2:
-	var x = square % 8
-	var y = square / 8
+	var x := square % 8
+	var y := square / 8
 	return Vector2(
 		x * Chess.SQUARE_SIZE + (Chess.SQUARE_SIZE  / 2),
 		y * Chess.SQUARE_SIZE + (Chess.SQUARE_SIZE / 2) 
 	)
 
-func on_piece_clicked_on(piece: Piece):
-	print_debug(piece.to_string() + " clicked on")
-
-func on_piece_clicked_off(piece: Piece):
-	print_debug(piece.to_string() + " clicked on")
+static func position_to_square(pos: Vector2) -> int:
+	if pos.x < 0 or pos.x > Chess.SQUARE_SIZE * 8:
+		return -1
+	
+	var x := int(pos.x / Chess.SQUARE_SIZE)
+	var y := int(pos.y / Chess.SQUARE_SIZE)
+	return x + y * 8
