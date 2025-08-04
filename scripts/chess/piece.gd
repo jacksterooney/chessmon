@@ -7,6 +7,20 @@ var piece_info: int
 var square: int
 var selected: bool = false
 
+enum {
+	None,
+	King,
+	Pawn,
+	Knight,
+	Bishop,
+	Rook,
+	Queen,
+
+
+	White = 8,
+	Black = 16
+}
+
 func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		var input_event_mouse_button = event as InputEventMouseButton
@@ -27,3 +41,19 @@ func _input(event: InputEvent) -> void:
 			
 	elif selected and event is InputEventMouseMotion:
 		global_position = get_global_mouse_position()
+
+static func Is_Color(piece: int, color_to_move: int) -> bool:
+	return piece >> 3 == color_to_move
+
+static func Is_Sliding_Piece(piece: int):
+	var piece_type: int = Get_Piece_Type(piece)
+	match piece_type:
+		Queen, Bishop, Rook:
+			return true
+	return false
+
+static func Is_Type(piece: int, piece_type: int) -> bool:
+	return Get_Piece_Type(piece) == piece_type
+
+static func Get_Piece_Type(piece: int) -> int:
+	return piece & 0b111 # Get the 3 least significant bits

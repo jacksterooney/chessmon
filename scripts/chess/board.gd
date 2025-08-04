@@ -1,9 +1,10 @@
 class_name Board extends Node2D
 
-var squares: Array[int] = []
+static var Square: Array[int] = []
+static var Color_To_Move: int = Piece.White # Represented as an enum
 
 func _ready() -> void:
-	squares.resize(64)
+	Square.resize(64)
 
 static func square_to_position(square: int) -> Vector2:
 	var x := square % 8
