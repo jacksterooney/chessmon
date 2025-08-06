@@ -21,3 +21,6 @@ static func position_to_square(pos: Vector2) -> int:
 	var x := int(pos.x / Chess.SQUARE_SIZE)
 	var y := 7 - int(pos.y / Chess.SQUARE_SIZE)
 	return x + y * 8
+
+static func Is_Rank(square: int, rank: int) -> bool:
+	return square / 8 == rank - 1

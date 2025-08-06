@@ -104,12 +104,15 @@ static func Generate_Pawn_Moves(
 		friendly_color: int, opponent_color: int
 	):
 	var dir_index = 0 if Piece.Is_Color(piece, Piece.White) else 1
+	
+	var move_length = 2 if (Board.Is_Rank(start_square, 2) or Board.Is_Rank(start_square, 7)) else 1
 
-	var target_square: int = start_square + Direction_Offsets[dir_index]
-	var piece_on_target_square: int = Board.Square[target_square]
+	for n in move_length:
+		var target_square: int = start_square + Direction_Offsets[dir_index] * (n+1)
+		var piece_on_target_square: int = Board.Square[target_square]
 
-	# Blocked by any piece, so can't move further in this direction
-	if piece_on_target_square != 0:
-		return
-	else:
-		Moves.append(Move.new(start_square, target_square))
+		# Blocked by any piece, so can't move further in this direction
+		if piece_on_target_square != 0:
+			return
+		else:
+			Moves.append(Move.new(start_square, target_square))
