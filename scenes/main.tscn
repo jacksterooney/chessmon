@@ -7,7 +7,6 @@
 script = ExtResource("1_o5qli")
 light_col = Color(0.905882, 0.835294, 0.701961, 1)
 dark_col = Color(0.458824, 0.654902, 0.262745, 1)
-start_fen = "Sliding Pieces Only"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(160, 160)

@@ -9,6 +9,7 @@ static var SQUARE_SIZE: int = 40
 @export_enum( 
 	"Standard",
 	"Sliding Pieces Only",
+	"Dueling Kings"
 ) var start_fen: String = "Standard"
 
 @onready var square_scene: PackedScene = preload("res://scenes/square.tscn")
@@ -24,17 +25,18 @@ var opponent_color: int
 
 const FENS: Dictionary[String, String] = {
 	"Standard": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
-	"Sliding Pieces Only": "q6r/8/8/8/8/8/8/B7"
+	"Sliding Pieces Only": "q6r/8/8/8/8/8/8/B7",
+	"Dueling Kings": "k7/8/8/8/8/8/8/7K"
 }
 
 func _ready():
 	friendly_color = Piece.White
 	opponent_color = Piece.Black
-	Precompute_Move_Data()
+	MoveGenerator.Precompute_Move_Data()
 	
 	load_position_from_fen(start_fen)
 	create_graphical_board()
-	generate_moves()
+	MoveGenerator.Generate_Moves(Piece.White, Piece.Black)
 
 func create_graphical_board():
 	print_debug("Creating graphical board...")
@@ -106,9 +108,13 @@ func load_position_from_fen(fen: String):
 				file += 1
 
 func next_turn():
-	Board.Color_To_Move = Piece.White if Board.Color_To_Move == Piece.Black else Piece.Black
+	var current_color_to_move: int = Board.Color_To_Move
+	var friendly_color = Piece.White if current_color_to_move == Piece.Black else Piece.Black
+	var opponent_color = Piece.Black if current_color_to_move == Piece.Black else Piece.White
+	
+	Board.Color_To_Move = friendly_color
 	print_debug("Next turn")
-	generate_moves()
+	MoveGenerator.Generate_Moves(friendly_color, opponent_color)
 
 #region Piece sprites
 
@@ -173,75 +179,15 @@ func on_piece_deselected():
 
 func on_piece_moved(piece: int, move: Move):
 	# Check move is valid
-	if Move.Has_Move(moves, move):
+	if Move.Has_Move(MoveGenerator.Moves, move):
 		print_debug(str(piece) + " moved from " + str(move.start_square) + " to " + str(move.target_square))
 		Board.Square[move.target_square] = piece
 		Board.Square[move.start_square] = 0
-		generate_moves()
 	draw_pieces()
 	next_turn()
 
-#region Generating Moves
-static var Direction_Offsets: Array[int] = [
-	8, -8, -1, 1, 7, -7, 9, -9
-]
-static var Num_Squares_To_Edge: Array[Array]
-
-static func Precompute_Move_Data():
-	Num_Squares_To_Edge.resize(64)
-	for file in 8:
-		for rank in 8:
-			var num_north := 7 - rank
-			var num_south := rank
-			var num_west := file
-			var num_east := 7 - file
-
-			var square_index := rank * 8 + file
-			Num_Squares_To_Edge[square_index] = [
-				num_north,
-				num_south,
-				num_west,
-				num_east,
-				min(num_north, num_west),
-				min(num_south, num_east),
-				min(num_north, num_east),
-				min(num_south, num_west)
-			]
-
-var moves: Array[Move]
-
-func generate_moves() -> Array[Move]:
-	moves = []
-
-	for start_square: int in 64:
-		var piece: int = Board.Square[start_square]
-		if piece != 0 and Piece.Is_Color(piece, Board.Color_To_Move):
-			if Piece.Is_Sliding_Piece(piece):
-				generate_sliding_moves(start_square, piece)
-	
-	return moves
-
-func generate_sliding_moves(start_square: int, piece: int):
-	var start_dir_index: int = 4 if Piece.Is_Type(piece, Piece.Bishop) else 0
-	var end_dir_index: int = 4 if Piece.Is_Type(piece, Piece.Rook) else 8
-
-	for direction_index in range(start_dir_index, end_dir_index):
-		for n in Num_Squares_To_Edge[start_square][direction_index]:
-			var target_square: int = start_square + Direction_Offsets[direction_index] * (n+1)
-			var piece_on_target_square: int = Board.Square[target_square]
-
-			# Blocked by friendly piece, so can't move further in this direction
-			if Piece.Is_Color(piece_on_target_square, friendly_color):
-				break
-			
-			moves.append(Move.new(start_square, target_square))
-
-			# Can't move any further in this direction after capturing opponent's piece
-			if Piece.Is_Color(piece_on_target_square, opponent_color):
-				break
-
 func show_moves(start_square: int):
-	for move in moves:
+	for move in MoveGenerator.Moves:
 		if move.start_square == start_square:
 			var target_square: int = move.target_square
 			var dot: Sprite2D = dot_scene.instantiate()
@@ -251,6 +197,3 @@ func show_moves(start_square: int):
 func hide_moves():
 	for dot in dots.get_children():
 		dot.queue_free()
-		
-
-#endregion

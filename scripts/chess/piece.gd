@@ -47,8 +47,8 @@ func _input(event: InputEvent) -> void:
 	elif is_selected and event is InputEventMouseMotion:
 		global_position = get_global_mouse_position()
 
-static func Is_Color(piece: int, color_to_move: int) -> bool:
-	return piece & 0b11000 == color_to_move
+static func Is_Color(piece: int, color: int) -> bool:
+	return piece & 0b11000 == color
 
 static func Is_Sliding_Piece(piece: int) -> bool:
 	var piece_type: int = Get_Piece_Type(piece)
