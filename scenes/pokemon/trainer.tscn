@@ -1,7 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://ckicr2cy0morf"]
+[gd_scene load_steps=34 format=3 uid="uid://btjxodp8bn8hj"]
 
-[ext_resource type="Script" uid="uid://ctfimdq61x3aa" path="res://scripts/pokemon/player.gd" id="1_e85gm"]
-[ext_resource type="Texture2D" uid="uid://ro0cakmr3c0q" path="res://assets/pokemon/Player/Male_Spritesheet.aseprite" id="2_e85gm"]
+[ext_resource type="Script" uid="uid://ctfimdq61x3aa" path="res://scripts/pokemon/player.gd" id="1_6yw7j"]
+[ext_resource type="Texture2D" uid="uid://cohtn23gy0q4o" path="res://assets/pokemon/Player/Enemy_Spritesheet.aseprite" id="2_6yw7j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e85gm"]
 size = Vector2(16, 16)
@@ -446,10 +446,10 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-55, -25)
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_e85gm")
+script = ExtResource("1_6yw7j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_e85gm")
+texture = ExtResource("2_6yw7j")
 centered = false
 offset = Vector2(0, -4)
 hframes = 3

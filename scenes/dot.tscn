@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dms00l2cq42qt"]
+
+[ext_resource type="Texture2D" uid="uid://bya7vgb7k1ktd" path="res://assets/chess/dot.aseprite" id="1_c4igg"]
+
+[node name="Dot" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.392157)
+texture = ExtResource("1_c4igg")

@@ -5,13 +5,16 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o5qli")
-light_col = Color(0.913725, 0.882353, 0.823529, 1)
-dark_col = Color(0.356995, 0.568913, 0.357718, 1)
+light_col = Color(0.905882, 0.835294, 0.701961, 1)
+dark_col = Color(0.458824, 0.654902, 0.262745, 1)
+start_fen = "Sliding Pieces Only"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(160, 160)
 
 [node name="Board" type="Node2D" parent="."]
 script = ExtResource("2_0wfyh")
+
+[node name="Dots" type="Node2D" parent="."]
 
 [node name="Pieces" type="Node2D" parent="."]

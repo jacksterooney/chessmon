@@ -1,4 +1,5 @@
-extends CharacterBody2D
+class_name Player
+extends Person
 
 const TILE_SIZE := 16
 

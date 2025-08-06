@@ -6,20 +6,35 @@ static var SQUARE_SIZE: int = 40
 @export var light_col: Color
 @export var dark_col: Color
 
-@onready var square_scene = preload("res://scenes/square.tscn")
-@onready var piece_scene = preload("res://scenes/piece.tscn")
+@export_enum( 
+	"Standard",
+	"Sliding Pieces Only",
+) var start_fen: String = "Standard"
+
+@onready var square_scene: PackedScene = preload("res://scenes/square.tscn")
+@onready var piece_scene: PackedScene = preload("res://scenes/piece.tscn")
+@onready var dot_scene: PackedScene = preload("res://scenes/dot.tscn")
 
 @onready var board: Board = $Board
 @onready var pieces: Node2D = $Pieces
+@onready var dots: Node2D = $Dots
 
 var friendly_color: int
 var opponent_color: int
 
-const START_FEN: String = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+const FENS: Dictionary[String, String] = {
+	"Standard": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
+	"Sliding Pieces Only": "q6r/8/8/8/8/8/8/B7"
+}
 
 func _ready():
-	load_position_from_fen(START_FEN)
+	friendly_color = Piece.White
+	opponent_color = Piece.Black
+	Precompute_Move_Data()
+	
+	load_position_from_fen(start_fen)
 	create_graphical_board()
+	generate_moves()
 
 func create_graphical_board():
 	print_debug("Creating graphical board...")
@@ -28,7 +43,7 @@ func create_graphical_board():
 			var is_light_square: bool = (file + rank) % 2 != 0
 
 			var square_colour := light_col if is_light_square else dark_col
-			var position = Vector2(
+			var position := Vector2(
 				file * SQUARE_SIZE + (SQUARE_SIZE  / 2),
 				(8 * SQUARE_SIZE) - (rank * SQUARE_SIZE + (SQUARE_SIZE / 2))
 				)
@@ -38,7 +53,7 @@ func create_graphical_board():
 	draw_pieces()
 
 func draw_square(square_colour: Color, position: Vector2):
-	var square = square_scene.instantiate() as Sprite2D
+	var square: Sprite2D = square_scene.instantiate()
 	board.add_child(square)
 	square.position = position
 	square.modulate = square_colour
@@ -51,15 +66,16 @@ func draw_pieces():
 	for i in 64:
 		if board.Square[i] == 0:
 			continue
-		var piece = piece_scene.instantiate() as Piece
+		var piece: Piece = piece_scene.instantiate()
 		pieces.add_child(piece)
 		piece.position = Board.square_to_position(i)
 		piece.square = i
 		piece.piece_info = Board.Square[i]
 
 		piece.find_child("Sprite2D").texture = get_sprite_for_piece(Board.Square[i])
-		piece.connect("clicked_on", on_piece_clicked_on)
-		piece.connect("moved", on_piece_moved)
+		piece.selected.connect(on_piece_selected)
+		piece.deselected.connect(on_piece_deselected)
+		piece.moved.connect(on_piece_moved)
 
 func load_position_from_fen(fen: String):
 	print_debug("Loading position from FEN: " + fen)
@@ -72,7 +88,7 @@ func load_position_from_fen(fen: String):
 		'q': Piece.Queen,
 	}
 
-	var fen_board: String = fen.split(' ')[0]
+	var fen_board: String = FENS[fen].split(' ')[0]
 	var file := 0
 	var rank := 7
 
@@ -85,9 +101,14 @@ func load_position_from_fen(fen: String):
 				file += int(symbol)
 			else:
 				var piece_color := Piece.White if symbol == symbol.to_upper() else Piece.Black
-				var piece_type = piece_type_from_symbol[symbol.to_lower()]
+				var piece_type := piece_type_from_symbol[symbol.to_lower()]
 				Board.Square[rank * 8 + file] = piece_color | piece_type
 				file += 1
+
+func next_turn():
+	Board.Color_To_Move = Piece.White if Board.Color_To_Move == Piece.Black else Piece.Black
+	print_debug("Next turn")
+	generate_moves()
 
 #region Piece sprites
 
@@ -142,14 +163,23 @@ func get_sprite_for_piece(piece: int) -> Texture2D:
 
 #endregion
 
-func on_piece_clicked_on(piece: Piece):
-	print_debug(piece.to_string() + " clicked on")
+func on_piece_selected(piece: int, square: int):
+	print_debug(str(piece) + " clicked on")
+	show_moves(square)
 
-func on_piece_moved(piece_info: int, old_square: int, new_square: int):
-	print_debug(str(piece_info) + " clicked off")
-	Board.Square[new_square] = piece_info
-	Board.Square[old_square] = 0
+func on_piece_deselected():
+	print_debug("Deselected piece.")
+	hide_moves()
+
+func on_piece_moved(piece: int, move: Move):
+	# Check move is valid
+	if Move.Has_Move(moves, move):
+		print_debug(str(piece) + " moved from " + str(move.start_square) + " to " + str(move.target_square))
+		Board.Square[move.target_square] = piece
+		Board.Square[move.start_square] = 0
+		generate_moves()
 	draw_pieces()
+	next_turn()
 
 #region Generating Moves
 static var Direction_Offsets: Array[int] = [
@@ -157,7 +187,8 @@ static var Direction_Offsets: Array[int] = [
 ]
 static var Num_Squares_To_Edge: Array[Array]
 
-static func precomputed_move_data():
+static func Precompute_Move_Data():
+	Num_Squares_To_Edge.resize(64)
 	for file in 8:
 		for rank in 8:
 			var num_north := 7 - rank
@@ -183,21 +214,21 @@ func generate_moves() -> Array[Move]:
 	moves = []
 
 	for start_square: int in 64:
-		var piece = Board.Square[start_square]
-		if Piece.Is_Color(piece, Board.Color_To_Move):
+		var piece: int = Board.Square[start_square]
+		if piece != 0 and Piece.Is_Color(piece, Board.Color_To_Move):
 			if Piece.Is_Sliding_Piece(piece):
 				generate_sliding_moves(start_square, piece)
 	
 	return moves
 
 func generate_sliding_moves(start_square: int, piece: int):
-	var start_dir_index = 4 if Piece.Is_Type(piece, Piece.Bishop) else 0
-	var end_dir_index = 4 if Piece.Is_Type(piece, Piece.Rook) else 8
+	var start_dir_index: int = 4 if Piece.Is_Type(piece, Piece.Bishop) else 0
+	var end_dir_index: int = 4 if Piece.Is_Type(piece, Piece.Rook) else 8
 
 	for direction_index in range(start_dir_index, end_dir_index):
 		for n in Num_Squares_To_Edge[start_square][direction_index]:
 			var target_square: int = start_square + Direction_Offsets[direction_index] * (n+1)
-			var piece_on_target_square = Board.Square[target_square]
+			var piece_on_target_square: int = Board.Square[target_square]
 
 			# Blocked by friendly piece, so can't move further in this direction
 			if Piece.Is_Color(piece_on_target_square, friendly_color):
@@ -208,6 +239,18 @@ func generate_sliding_moves(start_square: int, piece: int):
 			# Can't move any further in this direction after capturing opponent's piece
 			if Piece.Is_Color(piece_on_target_square, opponent_color):
 				break
-			
+
+func show_moves(start_square: int):
+	for move in moves:
+		if move.start_square == start_square:
+			var target_square: int = move.target_square
+			var dot: Sprite2D = dot_scene.instantiate()
+			dot.global_position = Board.square_to_position(target_square)
+			dots.add_child(dot)
+
+func hide_moves():
+	for dot in dots.get_children():
+		dot.queue_free()
+		
 
 #endregion
