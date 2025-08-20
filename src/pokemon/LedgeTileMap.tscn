@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://j070mew40hvk"]
+
+[ext_resource type="Texture2D" uid="uid://wyb41armkdbb" path="res://pokemon/Assets/Tilesets/ledge.png" id="1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wdy2i"]
+texture = ExtResource("1")
+
+[sub_resource type="TileSet" id="13"]
+sources/0 = SubResource("TileSetAtlasSource_wdy2i")
+
+[node name="LedgeTileMap" type="TileMap"]
+tile_set = SubResource("13")
+format = 2

@@ -11,23 +11,35 @@ config_version=5
 [application]
 
 config/name="Chess"
-run/main_scene="res://Main.tscn"
-config/features=PackedStringArray("4.1")
-config/icon="res://icon.png"
+run/main_scene="res://pokemon/SceneManager.tscn"
+config/features=PackedStringArray("4.4")
+config/icon="res://chess/icon.png"
 
 [autoload]
 
-Pieces="*res://Pieces.tscn"
+Pieces="*res://chess/Pieces.tscn"
+Utils="*res://pokemon/Autoload/utils.gd"
 
 [debug]
 
+file_logging/enable_file_logging=true
 gdscript/warnings/return_value_discarded=false
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=980
+window/size/viewport_width=240
+window/size/viewport_height=160
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+window/stretch/scale_mode="integer"
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="World"
+2d_physics/layer_3="Ledge"
+2d_physics/layer_4="Door"
 
 [rendering]
 
-environment/defaults/default_environment="res://default_env.tres"
+textures/canvas_textures/default_texture_filter=0

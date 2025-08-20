@@ -1,0 +1,112 @@
+[gd_scene load_steps=9 format=3 uid="uid://kquaid6eu7fn"]
+
+[ext_resource type="Texture2D" uid="uid://qbfukv5yki6l" path="res://Assets/Tilesets/grass1_tileset.png" id="1_yljxb"]
+[ext_resource type="Texture2D" path="res://Assets/Water/WaterTexture.tres" id="2_krrgq"]
+[ext_resource type="Texture2D" uid="uid://d4e6s57ttxvfx" path="res://Assets/Tilesets/grass2_tileset.png" id="3_w3ls1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i55nm"]
+texture = ExtResource("1_yljxb")
+margins = Vector2i(48, 0)
+0:0/next_alternative_id = 8
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/2 = 2
+0:0/2/flip_v = true
+0:0/3 = 3
+0:0/3/flip_h = true
+0:0/3/flip_v = true
+0:0/4 = 4
+0:0/4/transpose = true
+0:0/5 = 5
+0:0/5/flip_h = true
+0:0/5/transpose = true
+0:0/6 = 6
+0:0/6/flip_v = true
+0:0/6/transpose = true
+0:0/7 = 7
+0:0/7/flip_h = true
+0:0/7/flip_v = true
+0:0/7/transpose = true
+0:1/next_alternative_id = 8
+0:1/0 = 0
+0:1/1 = 1
+0:1/1/flip_h = true
+0:1/2 = 2
+0:1/2/flip_v = true
+0:1/3 = 3
+0:1/3/flip_h = true
+0:1/3/flip_v = true
+0:1/4 = 4
+0:1/4/transpose = true
+0:1/5 = 5
+0:1/5/flip_h = true
+0:1/5/transpose = true
+0:1/6 = 6
+0:1/6/flip_v = true
+0:1/6/transpose = true
+0:1/7 = 7
+0:1/7/flip_h = true
+0:1/7/flip_v = true
+0:1/7/transpose = true
+0:2/next_alternative_id = 8
+0:2/0 = 0
+0:2/1 = 1
+0:2/1/flip_h = true
+0:2/2 = 2
+0:2/2/flip_v = true
+0:2/3 = 3
+0:2/3/flip_h = true
+0:2/3/flip_v = true
+0:2/4 = 4
+0:2/4/transpose = true
+0:2/5 = 5
+0:2/5/flip_h = true
+0:2/5/transpose = true
+0:2/6 = 6
+0:2/6/flip_v = true
+0:2/6/transpose = true
+0:2/7 = 7
+0:2/7/flip_h = true
+0:2/7/flip_v = true
+0:2/7/transpose = true
+0:3/next_alternative_id = 8
+0:3/0 = 0
+0:3/1 = 1
+0:3/1/flip_h = true
+0:3/2 = 2
+0:3/2/flip_v = true
+0:3/3 = 3
+0:3/3/flip_h = true
+0:3/3/flip_v = true
+0:3/4 = 4
+0:3/4/transpose = true
+0:3/5 = 5
+0:3/5/flip_h = true
+0:3/5/transpose = true
+0:3/6 = 6
+0:3/6/flip_v = true
+0:3/6/transpose = true
+0:3/7 = 7
+0:3/7/flip_h = true
+0:3/7/flip_v = true
+0:3/7/transpose = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ol77m"]
+texture = ExtResource("1_yljxb")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pxxrd"]
+texture = ExtResource("2_krrgq")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h1s3k"]
+texture = ExtResource("3_w3ls1")
+
+[sub_resource type="TileSet" id="9"]
+sources/0 = SubResource("TileSetAtlasSource_i55nm")
+sources/1 = SubResource("TileSetAtlasSource_ol77m")
+sources/2 = SubResource("TileSetAtlasSource_pxxrd")
+sources/3 = SubResource("TileSetAtlasSource_h1s3k")
+
+[node name="OverworldTileMap" type="TileMapLayer"]
+use_parent_material = true
+tile_set = SubResource("9")

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://1ggxtsr4hbwc"]
-
-[ext_resource type="Script" path="res://engine/UDPClient.gd" id="1"]
-
-[node name="UDPClient" type="Node"]
-script = ExtResource("1")
