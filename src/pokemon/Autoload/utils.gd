@@ -11,10 +11,7 @@ func _ready():
 	pass # Replace with function body.
 
 func get_player() -> Player:
-	var current_scene: Node = get_node("/root/SceneManager/CurrentScene")
-	if current_scene != null:
-		return current_scene.get_children().back().find_child("Player")
-	return null
+	return get_tree().get_first_node_in_group("player")
 
 func get_scene_manager() -> SceneManager:
 	return get_node("/root/SceneManager") as SceneManager

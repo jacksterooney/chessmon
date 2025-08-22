@@ -462,6 +462,7 @@ transitions = ["Idle", "Walk", SubResource("30"), "Walk", "Idle", SubResource("3
 graph_offset = Vector2(-142, 5)
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_mask = 14
 script = ExtResource("2")
 

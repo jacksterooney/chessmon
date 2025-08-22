@@ -1,166 +1,156 @@
 class_name Player
 extends CharacterBody2D
 
-signal player_moving_signal
-signal player_stopped_signal
+#region Signals
+signal player_entered_door
+#endregion
 
-signal player_entering_door_signal
-signal player_entered_door_signal
+#region Enums
+enum PlayerState { IDLE, TURNING, WALKING }
+enum FacingDirection { LEFT, RIGHT, UP, DOWN }
+#endregion
 
+#region Constants
 const LANDING_DUST_EFFECT: PackedScene = preload("res://pokemon/LandingDustEffect.tscn")
+const TILE_SIZE: int                   = 16
+#endregion
 
-@export var walk_speed: float = 4.0
+#region @export variables
 @export var jump_speed: float = 4.0
-const TILE_SIZE: int = 16
+@export var initial_delay: float = 0.3
+@export var repeat_delay: float = 0.15
+@export var move_duration: float = 0.2
 
-@onready var anim_tree = $AnimationTree
+#endregion
+
+#region regular variables
+var jumping_over_ledge: bool =  false
+var player_state             := PlayerState.IDLE
+var facing_direction         := FacingDirection.DOWN
+var current_input_dir        := Vector2i(0, 1)
+var is_moving                := false
+var stop_input               := false
+var move_timer: float        =  0.0
+var is_initial_move: bool    =  true
+var current_tile_pos         := Vector2i.ZERO
+
+#endregion
+
+#region @onready variables
+@onready var anim_tree: AnimationTree = $AnimationTree
 @onready var anim_state = anim_tree.get("parameters/playback")
 @onready var ray: RayCast2D = $BlockingRayCast2D
 @onready var ledge_ray = $LedgeRayCast2D
 @onready var door_ray: RayCast2D = $DoorRayCast2D
 @onready var camera: Camera2D = $Camera2D
-
 @onready var shadow = $Shadow
-var jumping_over_ledge: bool = false
 
-enum PlayerState { IDLE, TURNING, WALKING }
-enum FacingDirection { LEFT, RIGHT, UP, DOWN }
 
-var player_state := PlayerState.IDLE
-var facing_direction := FacingDirection.DOWN
-
-var initial_position := Vector2(0, 0)
-var input_direction := Vector2(0, 1)
-var is_moving := false
-var stop_input := false
-var percent_moved_to_next_tile: float = 0.0
+#endregion
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Sprite.visible = true
 	anim_tree.active = true
-	initial_position = position
 	shadow.visible = false
-	anim_tree.set("parameters/Idle/blend_position", input_direction)
-	anim_tree.set("parameters/Walk/blend_position", input_direction)
-	anim_tree.set("parameters/Turn/blend_position", input_direction)
+	anim_tree.set("parameters/Idle/blend_position", current_input_dir)
+	anim_tree.set("parameters/Walk/blend_position", current_input_dir)
+	anim_tree.set("parameters/Turn/blend_position", current_input_dir)
 	camera.make_current()
-	
+	current_tile_pos = position / TILE_SIZE
+
+	add_to_group("player")
+	set_physics_process(true)
+
+
 func set_spawn(location: Vector2, direction: Vector2):
-		anim_tree.set("parameters/Idle/blend_position", direction)
-		anim_tree.set("parameters/Walk/blend_position", direction)
-		anim_tree.set("parameters/Turn/blend_position", direction)
-		position = location
-	
-func _physics_process(delta) -> void:
-	if player_state == PlayerState.TURNING or stop_input:
-		return
-	elif is_moving == false:
-		process_player_movement_input()
-	elif input_direction != Vector2.ZERO:
-		anim_state.travel("Walk")
-		move(delta)
-	else:
-		anim_state.travel("Idle")
-		is_moving = false
+	anim_tree.set("parameters/Idle/blend_position", direction)
+	anim_tree.set("parameters/Walk/blend_position", direction)
+	anim_tree.set("parameters/Turn/blend_position", direction)
+	position = location
 
-func process_player_movement_input():
-	if input_direction.y == 0:
-		input_direction.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
-	if input_direction.x == 0:
-		input_direction.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
-		
-	if input_direction != Vector2.ZERO:
-		anim_tree.set("parameters/Idle/blend_position", input_direction)
-		anim_tree.set("parameters/Walk/blend_position", input_direction)
-		anim_tree.set("parameters/Turn/blend_position", input_direction)
-		
-		if need_to_turn():
-			player_state = PlayerState.TURNING
-			anim_state.travel("Turn")
-		else:
-			initial_position = position
-			is_moving = true
-	else:
-		anim_state.travel("Idle")
-		
-func need_to_turn() -> bool:
-	var new_facing_direction
-	if input_direction.x < 0:
-		new_facing_direction = FacingDirection.LEFT
-	elif input_direction.x > 0:
-		new_facing_direction = FacingDirection.RIGHT
-	elif input_direction.y < 0:
-		new_facing_direction = FacingDirection.UP
-	elif input_direction.y > 0:
-		new_facing_direction = FacingDirection.DOWN
-	
-	if facing_direction != new_facing_direction:
-		facing_direction = new_facing_direction
-		return true
-	facing_direction = new_facing_direction
-	return false
 
-func finished_turning():
-	player_state = PlayerState.IDLE
+func _process(delta: float) -> void:
+	handle_held_input(delta)
+
+
+func handle_held_input(delta) -> void:
+	var input_dir := Vector2i.ZERO
+
+	# Check for held input
+	if Input.is_action_pressed("ui_up"):
+		input_dir = Vector2i.UP
+	elif Input.is_action_pressed("ui_down"):
+		input_dir = Vector2i.DOWN
+	elif Input.is_action_pressed("ui_left"):
+		input_dir = Vector2i.LEFT
+	elif Input.is_action_pressed("ui_right"):
+		input_dir = Vector2i.RIGHT
+
+	# If input direction changed or stopped
+	if input_dir != current_input_dir:
+		current_input_dir = input_dir
+		move_timer = 0.0
+		is_initial_move = true
+
+		# Immediate move on new input
+		if input_dir != Vector2i.ZERO and not is_moving:
+			try_move(input_dir)
+			return
+
+	# Handle held input timing
+	if current_input_dir != Vector2i.ZERO and not is_moving:
+		move_timer += delta
+
+		var delay_threshold: float = initial_delay if is_initial_move else repeat_delay
+
+		if move_timer >= delay_threshold:
+			try_move(current_input_dir)
+			move_timer = 0.0
+			is_initial_move = false
 	
+func try_move(direction: Vector2i):
+	var target_tile: Vector2i = current_tile_pos + direction
+	anim_tree.set("parameters/Idle/blend_position", direction)
+
+	if can_move_to_tile(target_tile):
+		move_to_tile(target_tile, direction)
+
+
+func can_move_to_tile(tile_pos: Vector2i) -> bool:
+	@warning_ignore("integer_division")
+	var world_pos := Vector2(tile_pos * TILE_SIZE) + Vector2(TILE_SIZE / 2, TILE_SIZE / 2)
+	
+	# First check tilemap collision
+	var tilemap   := get_node("../OverworldTileMap") as TileMapLayer
+	var tile_data := tilemap.get_cell_tile_data(tile_pos)
+	if tile_data == null or not tile_data.get_custom_data("walkable"):
+		return false
+	
+	# Then check for StaticBody2D collision
+	var space_state := get_world_2d().direct_space_state
+	var query := PhysicsPointQueryParameters2D.new()
+	query.position = world_pos
+	query.collision_mask = 2 # Set to World layer
+	
+	var result := space_state.intersect_point(query)
+	return result.is_empty()
+
+
+func move_to_tile(target_tile: Vector2i, direction: Vector2i):
+	is_moving = true
+	current_tile_pos = target_tile
+	var target_pos := Vector2(target_tile * TILE_SIZE)
+
+	var tween := create_tween()
+	tween.tween_property(self, "position", target_pos, move_duration)
+	anim_tree.set("parameters/Walk/blend_position", direction)
+	anim_state.travel("Walk")
+	await tween.finished
+
+	is_moving = false
+	anim_state.travel("Idle")
+
 func entered_door():
 	print_debug("Player entered door")
-	player_entered_door_signal.emit()
-
-func move(delta):
-	var desired_step: Vector2 = input_direction * TILE_SIZE / 2
-	ray.target_position = desired_step
-	ray.force_raycast_update()
-	
-	ledge_ray.target_position = desired_step
-	ledge_ray.force_raycast_update()
-	
-	door_ray.target_position = desired_step
-	door_ray.force_raycast_update()
-	
-	if door_ray.is_colliding():
-		if is_equal_approx(percent_moved_to_next_tile, 1.0):
-			player_entering_door_signal.emit()
-		percent_moved_to_next_tile += walk_speed * delta
-		if percent_moved_to_next_tile >= 1.0:
-			position = initial_position + (input_direction * TILE_SIZE)
-			percent_moved_to_next_tile = 0.0
-			is_moving = false
-			stop_input = true
-			$AnimationPlayer.play("Disappear")
-		else:
-			position = initial_position + (input_direction * TILE_SIZE * percent_moved_to_next_tile)
-		
-	elif (ledge_ray.is_colliding() && input_direction == Vector2(0, 1)) or jumping_over_ledge:
-		percent_moved_to_next_tile += jump_speed * delta
-		if percent_moved_to_next_tile >= 2.0:
-			position = initial_position + (input_direction * TILE_SIZE * 2)
-			percent_moved_to_next_tile = 0.0
-			is_moving = false
-			jumping_over_ledge = false
-			shadow.visible = false
-			
-			var dust_effect := LANDING_DUST_EFFECT.instantiate() as LandingDustEffect
-			dust_effect.position = position
-			get_tree().current_scene.add_child(dust_effect)
-			
-		else:
-			shadow.visible = true
-			jumping_over_ledge = true
-			var input: float = input_direction.y * TILE_SIZE * percent_moved_to_next_tile
-			position.y = initial_position.y + (-0.96 - 0.53 * input + 0.05 * pow(input, 2))
-		
-	elif !ray.is_colliding():
-		if percent_moved_to_next_tile == 0:
-			player_moving_signal.emit()
-		percent_moved_to_next_tile += walk_speed * delta
-		if percent_moved_to_next_tile >= 1.0:
-			position = initial_position + (input_direction * TILE_SIZE)
-			percent_moved_to_next_tile = 0.0
-			is_moving = false
-			player_stopped_signal.emit()
-		else:
-			position = initial_position + (input_direction * TILE_SIZE * percent_moved_to_next_tile)
-	else:
-		is_moving = false
+	player_entered_door.emit()

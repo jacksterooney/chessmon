@@ -1,7 +1,7 @@
 class_name SceneManager
 extends Node2D
 
-var next_scene = null
+var next_scene: String = ""
 
 var player_location: Vector2  = Vector2(0, 0)
 var player_direction: Vector2 = Vector2(0, 0)
@@ -33,9 +33,9 @@ func finished_fading():
 	match transition_type:
 		TransitionType.NEW_SCENE:
 			$CurrentScene.get_child(0).queue_free()
-			$CurrentScene.add_child(load(next_scene).instance())
+			$CurrentScene.add_child(load(next_scene).instantiate())
 			
-			var player := Utils.get_player()
+			var player: Player = Utils.get_player()
 			player.set_spawn(player_location, player_direction)
 		TransitionType.PARTY_SCREEN:
 			$Menu.load_party_screen()

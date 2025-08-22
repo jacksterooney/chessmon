@@ -1,3 +1,4 @@
+class_name Door
 extends Area2D
 
 @export_file var next_scene_path: String = ""
@@ -9,7 +10,6 @@ extends Area2D
 @onready var sprite = $Sprite
 @onready var anim_player = $AnimationPlayer
 
-var player_entered: bool = false
 
 func _ready():
 	if is_invisible:
@@ -17,8 +17,7 @@ func _ready():
 	sprite.visible = false
 	var player: Node = Utils.get_player()
 	if player != null:
-		player.player_entering_door_signal.connect(enter_door)
-		player.player_entered_door_signal.connect(close_door)
+		player.player_entered_door.connect(close_door)
 	
 func enter_door():
 	anim_player.play("OpenDoor")
@@ -27,5 +26,4 @@ func close_door():
 	anim_player.play("CloseDoor")
 
 func door_closed():
-	if player_entered:
-		Utils.get_scene_manager().transition_to_scene(next_scene_path, spawn_location, spawn_direction)
+	Utils.get_scene_manager().transition_to_scene(next_scene_path, spawn_location, spawn_direction)
