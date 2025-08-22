@@ -485,7 +485,6 @@ shape = SubResource("1")
 libraries = {
 &"": SubResource("AnimationLibrary_guvgg")
 }
-autoplay = "IdleDown"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("36")
