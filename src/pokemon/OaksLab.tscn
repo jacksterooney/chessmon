@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://c0krmmwfwo2vd"]
 
 [ext_resource type="Texture2D" uid="uid://bqyl2dnls2tak" path="res://pokemon/Assets/Buildings/pallet town/oaks_lab_interior.png" id="1"]
-[ext_resource type="PackedScene" uid="uid://bcyx0ktlqeh3p" path="res://pokemon/Player.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bcyx0ktlqeh3p" path="res://pokemon/person/player/Player.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://38kjnrbrefvg" path="res://pokemon/Door.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://4d84r1d8iayc" path="res://pokemon/Assets/Buildings/pallet town/mat.png" id="4"]
 

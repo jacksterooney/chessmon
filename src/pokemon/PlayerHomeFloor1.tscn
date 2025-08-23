@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://hwc483v0rwro"]
 
 [ext_resource type="Texture2D" uid="uid://ix6moqas72jf" path="res://pokemon/Assets/Buildings/pallet town/player_home_floor_1.png" id="1"]
-[ext_resource type="PackedScene" uid="uid://bcyx0ktlqeh3p" path="res://pokemon/Player.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bcyx0ktlqeh3p" path="res://pokemon/person/player/Player.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://38kjnrbrefvg" path="res://pokemon/Door.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://4d84r1d8iayc" path="res://pokemon/Assets/Buildings/pallet town/mat.png" id="4"]
 
