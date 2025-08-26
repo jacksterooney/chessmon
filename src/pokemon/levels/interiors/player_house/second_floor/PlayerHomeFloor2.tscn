@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=4 uid="uid://bsi2ok0qup20f"]
+
+[ext_resource type="TileSet" uid="uid://mpypoftmr5ea" path="res://pokemon/levels/interiors/interior_tileset.tres" id="1_ti3lh"]
+[ext_resource type="PackedScene" uid="uid://bcyx0ktlqeh3p" path="res://pokemon/person/player/Player.tscn" id="3_lldl3"]
+[ext_resource type="PackedScene" uid="uid://38kjnrbrefvg" path="res://pokemon/Door.tscn" id="4_lh0n3"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(16, 176)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(176, 16)
+
+[sub_resource type="RectangleShape2D" id="5"]
+size = Vector2(176, 16)
+
+[node name="PlayerHomeFloor1" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Door" parent="." instance=ExtResource("4_lh0n3")]
+modulate = Color(0.12549, 0.313726, 0.85098, 1)
+position = Vector2(128, 32)
+next_scene_path = "uid://hwc483v0rwro"
+spawn_location = Vector2(144, 32)
+spawn_direction = Vector2(-1, 0)
+
+[node name="GroundTileMap" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAABAAUAAAABAAAAAAAAAAIAAAABAAAAAAAAAAMAAAABAAAAAAAAAAQAAAABAAAAAAAAAAUAAAABAAAAAAAAAAYAAAABAAAAAAAAAAcAAAABAAAAAAAAAAgAAAABAAAAAAABAAIAAAABAAAAAAABAAMAAAABAAAAAAABAAQAAAABAAAAAAABAAYAAAABAAAAAAABAAcAAAABAAAAAAABAAgAAAABAAAAAAACAAIAAAABAAAAAAACAAMAAAABAAAAAAACAAQAAAABAAAAAAACAAUAAAABAAAAAAACAAYAAAABAAAAAAACAAcAAAABAAAAAAACAAgAAAABAAAAAAADAAIAAAABAAAAAAADAAMAAAABAAAAAAADAAQAAAABAAAAAAADAAUAAAABAAAAAAADAAYAAAABAAAAAAADAAcAAAABAAAAAAADAAgAAAABAAAAAAAEAAIAAAABAAAAAAAEAAMAAAABAAAAAAAEAAQAAAABAAAAAAAEAAUAAAABAAAAAAAEAAYAAAABAAAAAAAEAAcAAAABAAAAAAAEAAgAAAABAAAAAAAFAAIAAAABAAAAAAAFAAMAAAABAAAAAAAFAAQAAAABAAAAAAAFAAUAAAABAAAAAAAFAAYAAAABAAAAAAAFAAcAAAABAAAAAAAFAAgAAAABAAAAAAAGAAIAAAABAAAAAAAGAAMAAAABAAAAAAAGAAQAAAABAAAAAAAGAAUAAAABAAAAAAAGAAYAAAABAAAAAAAGAAcAAAABAAAAAAAGAAgAAAABAAAAAAAHAAIAAAABAAAAAAAHAAMAAAABAAAAAAAHAAQAAAABAAAAAAAHAAUAAAABAAAAAAAHAAYAAAABAAAAAAAHAAcAAAABAAAAAAAHAAgAAAABAAAAAAAIAAIAAAABAAAAAAAIAAMAAAABAAAAAAAIAAQAAAABAAAAAAAIAAUAAAABAAAAAAAIAAYAAAABAAAAAAAIAAcAAAABAAAAAAAIAAgAAAABAAAAAAAJAAIAAAABAAAAAAAJAAMAAAABAAAAAAAJAAQAAAABAAAAAAAJAAUAAAABAAAAAAAJAAYAAAABAAAAAAAJAAcAAAABAAAAAAAJAAgAAAABAAAAAAAKAAIAAAABAAAAAAAKAAMAAAABAAAAAAAKAAQAAAABAAAAAAAKAAUAAAABAAAAAAAKAAYAAAABAAAAAAAKAAcAAAABAAAAAAAKAAgAAAABAAAAAAA=")
+tile_set = ExtResource("1_ti3lh")
+
+[node name="Player" parent="." instance=ExtResource("3_lldl3")]
+position = Vector2(80, 96)
+
+[node name="ObjectTileMap" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAABAAUAAgAbAAsAAAAFAAUAAgAjAAUAAAAHAAIAAgAdAAoAAAAAAAEAAgAjAAsAAAA=")
+tile_set = ExtResource("1_ti3lh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-8, 88)
+shape = SubResource("1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(184, 87)
+shape = SubResource("1")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(88, 24)
+shape = SubResource("2")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(88, 152)
+shape = SubResource("5")

@@ -464,6 +464,7 @@ graph_offset = Vector2(-142, 5)
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_mask = 14
+motion_mode = 1
 script = ExtResource("2")
 
 [node name="Shadow" type="Sprite2D" parent="."]

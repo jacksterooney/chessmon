@@ -1,24 +1,18 @@
 class_name Player
 extends Person
 
-#region Signals
-signal player_entered_door
-#endregion
-
 #region Enums
 enum PlayerState { IDLE, TURNING, WALKING }
 #endregion
 
 #region Constants
 const LANDING_DUST_EFFECT: PackedScene = preload("res://pokemon/LandingDustEffect.tscn")
-const TILE_SIZE: int                   = 16
 #endregion
 
 #region @export variables
 @export var jump_speed: float = 4.0
-@export var initial_delay: float = 0.3
-@export var repeat_delay: float = 0.15
-@export var move_duration: float = 0.2
+@export var initial_delay: float = 0.0
+@export var repeat_delay: float = 0.0
 
 #endregion
 
@@ -26,44 +20,31 @@ const TILE_SIZE: int                   = 16
 var jumping_over_ledge: bool =  false
 var player_state             := PlayerState.IDLE
 var current_input_dir        := Vector2i.ZERO
-var current_facing_dir       := Vector2i.DOWN
-var is_moving                := false
 var stop_input               := false
-var move_timer: float        =  0.0
 var is_initial_move: bool    =  true
-var current_tile_pos         := Vector2i.ZERO
 
 #endregion
 
 #region @onready variables
-@onready var anim_tree: AnimationTree = $AnimationTree
-@onready var anim_state = anim_tree.get("parameters/playback")
 @onready var camera: Camera2D = $Camera2D
 @onready var shadow = $Shadow
-
-
 #endregion
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	sprite.visible = true
-	anim_tree.active = true
+	super()
 	shadow.visible = false
-	anim_tree.set("parameters/Idle/blend_position", current_facing_dir)
-	anim_tree.set("parameters/Walk/blend_position", current_facing_dir)
-	anim_tree.set("parameters/Turn/blend_position", current_facing_dir)
 	camera.make_current()
-	current_tile_pos = position / TILE_SIZE
 
 	add_to_group("player")
-	set_physics_process(true)
 
 
 func set_spawn(location: Vector2, direction: Vector2):
 	anim_tree.set("parameters/Idle/blend_position", direction)
 	anim_tree.set("parameters/Walk/blend_position", direction)
 	anim_tree.set("parameters/Turn/blend_position", direction)
-	position = location
+	global_position = location
+	current_tile_pos = position / TILE_SIZE
 
 
 func _process(delta: float) -> void:
@@ -122,58 +103,31 @@ func try_move(direction: Vector2i):
 	if can_move_to_tile(target_tile):
 		move_to_tile(target_tile)
 
-
-func can_move_to_tile(tile_pos: Vector2i) -> bool:
-	@warning_ignore("integer_division")
-	var world_pos := Vector2(tile_pos * TILE_SIZE) + Vector2(TILE_SIZE / 2, TILE_SIZE / 2)
-
-	# First check tilemap collision
-	var tilemap   := get_node("../OverworldTileMap") as TileMapLayer
-	var tile_data := tilemap.get_cell_tile_data(tile_pos)
-	if tile_data == null or not tile_data.get_custom_data("walkable"):
-		return false
-
-	# Then check for StaticBody2D collision
-	return query_tile(world_pos).is_empty()
+	var door := can_move_into_door(target_tile)
+	if door != null:
+		move_into_door(door)
 
 
-func move_to_tile(target_tile: Vector2i):
-	is_moving = true
-	current_tile_pos = target_tile
-	var target_pos := Vector2(target_tile * TILE_SIZE)
+func can_move_into_door(tile_pos: Vector2i) -> Door:
+	# Then check for StaticBody2D collision in the door group
+	var results := query_tile(tile_pos)
+	for result in results:
+		if result["collider"] is Door:
+			return result["collider"] as Door
+	return null
 
-	var tween := create_tween()
-	tween.tween_property(self, "position", target_pos, move_duration)
-	anim_state.travel("Walk")
-	await tween.finished
 
-	is_moving = false
-	anim_state.travel("Idle")
+func move_into_door(door: Door):
+	door.enter_door()
+	sprite.visible = false
 
 
 func handle_player_interaction():
 	# Check for held input
 	if Input.is_action_just_pressed("interact"):
-		var tile_pos: Vector2i = current_tile_pos + current_facing_dir
-		@warning_ignore("integer_division")
-		var world_pos := Vector2(tile_pos * TILE_SIZE) + Vector2(TILE_SIZE / 2, TILE_SIZE / 2)
-		var result    := query_tile(world_pos)
+		var tile_pos: Vector2i =  current_tile_pos + current_facing_dir
+		var result             := query_tile(tile_pos)
 		if !result.is_empty():
 			var collider = result[0]["collider"]
 			if collider.is_in_group("npcs"):
 				Dialogic.start('test_timeline')
-
-
-func query_tile(world_pos: Vector2i) -> Array[Dictionary]:
-	var space_state := get_world_2d().direct_space_state
-	var query       := PhysicsPointQueryParameters2D.new()
-	query.position = world_pos
-	query.collision_mask = 2 # Set to World layer
-
-	var result := space_state.intersect_point(query)
-	return result
-
-
-func entered_door():
-	print_debug("Player entered door")
-	player_entered_door.emit()

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dth36rslaan6p"]
+
+[ext_resource type="Script" uid="uid://dipmlkh8vl7xq" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://tch6cn6nleaq" path="res://pokemon/SceneManager.tscn" id="2_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://b2hwmrxcnsefj" path="res://pokemon/audio/music/littleroot.mp3" id="3_lquwl"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_h2yge")
+
+[node name="SceneManager" parent="." instance=ExtResource("2_1bvp3")]
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="AudioManager"]
+stream = ExtResource("3_lquwl")
+autoplay = true

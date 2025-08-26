@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Chess"
-run/main_scene="res://pokemon/SceneManager.tscn"
+run/main_scene="uid://dth36rslaan6p"
 config/features=PackedStringArray("4.4")
 config/icon="res://chess/icon.png"
 
@@ -69,7 +69,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/dialogic/plugin.cfg")
 
 [input]
 

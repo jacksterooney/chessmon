@@ -11,7 +11,7 @@ func _ready():
 	pass # Replace with function body.
 
 func get_player() -> Player:
-	return get_tree().get_first_node_in_group("player")
+	return get_tree().get_nodes_in_group("player").back()
 
 func get_scene_manager() -> SceneManager:
-	return get_node("/root/SceneManager") as SceneManager
+	return get_node("/root/Main/SceneManager") as SceneManager

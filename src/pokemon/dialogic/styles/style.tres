@@ -14,7 +14,9 @@
 [sub_resource type="Resource" id="Resource_d21b3"]
 script = ExtResource("1_oogg1")
 overrides = {
-"global_font_size": "10.0"
+"global_bg_color": "Color(0, 0, 0, 0.784314)",
+"global_font": "\"res://fonts/PixelatedEleganceRegular-ovyAA.ttf\"",
+"global_font_size": "8.0"
 }
 
 [sub_resource type="Resource" id="Resource_7d0km"]

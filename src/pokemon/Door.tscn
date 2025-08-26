@@ -3,9 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://db4awf7he67pe" path="res://pokemon/Assets/Buildings/Door Animations/house1.png" id="1"]
 [ext_resource type="Script" uid="uid://dlahgfoyk2df7" path="res://pokemon/Door.gd" id="2"]
 
-[sub_resource type="Animation" id="1"]
-resource_name = "CloseDoor"
-length = 0.3
+[sub_resource type="Animation" id="2"]
+resource_name = "OpenDoor"
+length = 0.6
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -13,10 +14,10 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [2, 1, 0]
+"values": [0, 1, 2, 2, 1, 0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -25,7 +26,7 @@ tracks/1/path = NodePath("Sprite:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -37,7 +38,7 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -45,9 +46,8 @@ tracks/2/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="2"]
-resource_name = "OpenDoor"
-length = 0.3
+[sub_resource type="Animation" id="Animation_3htvl"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -55,10 +55,10 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2]
+"values": [2]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -70,20 +70,20 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3htvl"]
 _data = {
-&"CloseDoor": SubResource("1"),
-&"OpenDoor": SubResource("2")
+&"OpenDoor": SubResource("2"),
+&"RESET": SubResource("Animation_3htvl")
 }
 
 [sub_resource type="RectangleShape2D" id="3"]
 size = Vector2(16, 16)
 
 [node name="Door" type="Area2D"]
-collision_layer = 8
+collision_layer = 2
 collision_mask = 0
 script = ExtResource("2")
 
@@ -92,6 +92,7 @@ visible = false
 texture = ExtResource("1")
 centered = false
 vframes = 3
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -101,6 +102,3 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(8, 8)
 shape = SubResource("3")
-
-[connection signal="body_entered" from="." to="." method="_on_Door_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_Door_body_exited"]
