@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=4 uid="uid://oiex8se8ligh"]
+
+[ext_resource type="PackedScene" uid="uid://bflkcwtm6xvel" path="res://pokemon/levels/level.tscn" id="1_w0uqq"]
+[ext_resource type="PackedScene" uid="uid://38kjnrbrefvg" path="res://pokemon/levels/door/door.tscn" id="2_rn02h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0uqq"]
+size = Vector2(224, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rn02h"]
+size = Vector2(224, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yw6xc"]
+size = Vector2(16, 128)
+
+[node name="Level" instance=ExtResource("1_w0uqq")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CollisionStaticBodies" index="0"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionStaticBodies/StaticBody2D" index="0"]
+position = Vector2(96, -8)
+shape = SubResource("RectangleShape2D_w0uqq")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="CollisionStaticBodies" index="1"]
+position = Vector2(0, 144)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionStaticBodies/StaticBody2D2" index="0"]
+position = Vector2(96, -8)
+shape = SubResource("RectangleShape2D_rn02h")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="CollisionStaticBodies" index="2"]
+position = Vector2(-16, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionStaticBodies/StaticBody2D3" index="0"]
+position = Vector2(8, 64)
+shape = SubResource("RectangleShape2D_yw6xc")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="CollisionStaticBodies" index="3"]
+position = Vector2(192, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionStaticBodies/StaticBody2D4" index="0"]
+position = Vector2(8, 64)
+shape = SubResource("RectangleShape2D_yw6xc")
+
+[node name="Ground" parent="TileMapLayers" index="0"]
+tile_map_data = PackedByteArray("AAAAAAAAAAABAAAAAAAAAAEAAAABAAAAAAAAAAIAAAABAAAAAAAAAAMAAAABAAAAAAAAAAQAAAABAAAAAAAAAAUAAAABAAAAAAAAAAYAAAABAAAAAAAAAAcAAAABAAAAAAABAAAAAAABAAAAAAABAAEAAAABAAAAAAABAAIAAAABAAAAAAABAAMAAAABAAAAAAABAAQAAAABAAAAAAABAAUAAAABAAAAAAABAAYAAAABAAAAAAABAAcAAAABAAAAAAACAAAAAAABAAAAAAACAAEAAAABAAAAAAACAAIAAAABAAAAAAACAAMAAAABAAAAAAACAAQAAAABAAAAAAACAAUAAAABAAAAAAACAAYAAAABAAAAAAACAAcAAAABAAAAAAADAAAAAAABAAAAAAADAAEAAAABAAAAAAADAAIAAAABAAAAAAADAAMAAAABAAAAAAADAAQAAAABAAAAAAADAAUAAAABAAAAAAADAAYAAAABAAAAAAADAAcAAAABAAAAAAAEAAAAAAABAAAAAAAEAAEAAAABAAAAAAAEAAIAAAABAAAAAAAEAAMAAAABAAAAAAAEAAQAAAABAAAAAAAEAAUAAAABAAAAAAAEAAYAAAABAAAAAAAEAAcAAAABAAAAAAAFAAAAAAABAAAAAAAFAAEAAAABAAAAAAAFAAIAAAABAAAAAAAFAAMAAAABAAAAAAAFAAQAAAABAAAAAAAFAAUAAAABAAAAAAAFAAYAAAABAAAAAAAFAAcAAAABAAAAAAAGAAAAAAABAAAAAAAGAAEAAAABAAAAAAAGAAIAAAABAAAAAAAGAAMAAAABAAAAAAAGAAQAAAABAAAAAAAGAAUAAAABAAAAAAAGAAYAAAABAAAAAAAGAAcAAAABAAAAAAAHAAAAAAABAAAAAAAHAAEAAAABAAAAAAAHAAIAAAABAAAAAAAHAAMAAAABAAAAAAAHAAQAAAABAAAAAAAHAAUAAAABAAAAAAAHAAYAAAABAAAAAAAHAAcAAAABAAAAAAAIAAAAAAABAAAAAAAIAAEAAAABAAAAAAAIAAIAAAABAAAAAAAIAAMAAAABAAAAAAAIAAQAAAABAAAAAAAIAAUAAAABAAAAAAAIAAYAAAABAAAAAAAIAAcAAAABAAAAAAAJAAAAAAABAAAAAAAJAAEAAAABAAAAAAAJAAIAAAABAAAAAAAJAAMAAAABAAAAAAAJAAQAAAABAAAAAAAJAAUAAAABAAAAAAAJAAYAAAABAAAAAAAJAAcAAAABAAAAAAAKAAAAAAABAAAAAAAKAAEAAAABAAAAAAAKAAIAAAABAAAAAAAKAAMAAAABAAAAAAAKAAQAAAABAAAAAAAKAAUAAAABAAAAAAAKAAYAAAABAAAAAAAKAAcAAAABAAAAAAALAAAAAAABAAAAAAALAAEAAAABAAAAAAALAAIAAAABAAAAAAALAAMAAAABAAAAAAALAAQAAAABAAAAAAALAAUAAAABAAAAAAALAAYAAAABAAAAAAALAAcAAAABAAAAAAA=")
+
+[node name="GroundDecoration" parent="TileMapLayers" index="1"]
+tile_map_data = PackedByteArray("AAACAAgAAgAQAAcAAAA=")
+
+[node name="Objects" parent="TileMapLayers" index="2"]
+position = Vector2(-1, 0)
+tile_map_data = PackedByteArray("AAAIAAEAAgAgAAoAAAAAAAAAAgAgAA0AAAAIAAYAAgAEAA8AAAAKAP//AgAmAAEAAAA=")
+
+[node name="Door" parent="Doors" index="0" instance=ExtResource("2_rn02h")]
+position = Vector2(128, 0)
+next_scene_path = "uid://2mat31d0e6bj"
+requires_open_door_animation = false
+spawn_location = Vector2(160, 0)
+spawn_direction = Vector2(1, 0)
+
+[node name="Door2" parent="Doors" index="1" instance=ExtResource("2_rn02h")]
+position = Vector2(32, 128)
+next_scene_path = "uid://c44rsmvf4qmtm"
+requires_open_door_animation = false
+spawn_location = Vector2(144, 192)
+spawn_direction = Vector2(0, 1)

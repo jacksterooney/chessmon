@@ -1,0 +1,10 @@
+res://engine/Engine.tscn::eae32c87bba7c6d9a35ec1b126834ae9::1755544715::res://.godot/exported/133200997/export-bd022ef5e193a1dc9914761bf059e3d8-Engine.scn
+res://engine/TestChessEngine.tscn::aac02bfc9c0865117f7765f0bb0e58ba::1755555792::res://.godot/exported/133200997/export-9ace7f1cd18a7387dfb1a2985edeb040-TestChessEngine.scn
+res://engine/TestUDPClient.tscn::2f5e4d8d2fa055a84a0a74e2f7678aa1::1755555792::res://.godot/exported/133200997/export-29f0fdc6dc808be6d968c20ae2f9e5f6-TestUDPClient.scn
+res://engine/UDPClient.tscn::69dff2a58093671ea53420a915b7e113::1755544715::res://.godot/exported/133200997/export-d5d4c5c7661bf470eb122269981b3d52-UDPClient.scn
+res://Alert.tscn::746c96b88dd4cc2618686b43416ef0cc::1755544715::res://.godot/exported/133200997/export-3ef23255a8f4146bc2c02732ee846606-Alert.scn
+res://Board.tscn::bbe1cb4b27e35f187bd72ef1d70417ac::1755544715::res://.godot/exported/133200997/export-038618b68dc2dbc178fc728cfa49d253-Board.scn
+res://default_env.tres::a5900c72bc557b1b1f57f1ffca1d96b5::1755555792::res://.godot/exported/133200997/export-7cf3fd67ad9f55210191d77b582b8209-default_env.res
+res://Main.tscn::27286bdf9ec505cc4adbf733f41d43e7::1755555792::res://.godot/exported/133200997/export-bcb0d2eb5949c52b6a65bfe9de3e985b-Main.scn
+res://Pieces.tscn::657d525912cc2f467f124d5238a8cf3e::1755544715::res://.godot/exported/133200997/export-e682e66bb6cbdd211834d6027c1f46a3-Pieces.scn
+res://Promote.tscn::aeff721fb44952c14ad3a20c3793d5c9::1755544715::res://.godot/exported/133200997/export-1d4627f847541c5279b7265386a80618-Promote.scn

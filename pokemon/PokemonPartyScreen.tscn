@@ -1,0 +1,439 @@
+[gd_scene load_steps=26 format=3 uid="uid://bc3ehldjhf05e"]
+
+[ext_resource type="Texture2D" uid="uid://dx7ywwm8pe86c" path="res://pokemon/Assets/UI/Pokemon Party/party_background.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://4ii3i1aq3xik" path="res://pokemon/Assets/UI/Pokemon Party/main_pokemon_background.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bp3xyrgydwdfh" path="res://pokemon/Assets/Pokemon/Charmander.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://cy1rb1uob85kc" path="res://pokemon/Assets/UI/Pokemon Party/gender_icons.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://di7detl5etcov" path="res://pokemon/Assets/UI/Pokemon Party/healthbar.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://cagm7tjs5l01e" path="res://pokemon/Assets/UI/Pokemon Party/standby_pokemon_background.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://bbdxr6c1wyhep" path="res://pokemon/Assets/Pokemon/Bulbasaur.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://dvgn7o48uygbh" path="res://pokemon/Assets/Pokemon/Squirtle.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://mmo6k0bgjt4r" path="res://pokemon/Assets/Pokemon/Pidgey.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://dpwa8d5btvw1o" path="res://pokemon/Assets/Pokemon/Pikachu.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://dcfrsiusvr1g1" path="res://pokemon/Assets/Pokemon/Onix.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://cy4wlhwvykhtm" path="res://pokemon/Assets/UI/Pokemon Party/exit_background_button.png" id="13"]
+[ext_resource type="Script" uid="uid://c4345ku8qa335" path="res://pokemon/PokemonPartyScreen.gd" id="14"]
+
+[sub_resource type="Animation" id="1"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PokemonPartySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_phrp8"]
+_data = {
+&"Idle": SubResource("1")
+}
+
+[sub_resource type="Animation" id="3"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PokemonPartySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h4ros"]
+_data = {
+&"Idle": SubResource("3")
+}
+
+[sub_resource type="Animation" id="4"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PokemonPartySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tekok"]
+_data = {
+&"Idle": SubResource("4")
+}
+
+[sub_resource type="Animation" id="5"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PokemonPartySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5bneb"]
+_data = {
+&"Idle": SubResource("5")
+}
+
+[sub_resource type="Animation" id="6"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PokemonPartySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gnt8a"]
+_data = {
+&"Idle": SubResource("6")
+}
+
+[sub_resource type="Animation" id="7"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PokemonPartySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_56hw3"]
+_data = {
+&"Idle": SubResource("7")
+}
+
+[node name="PokemonPartyScreen" type="Node2D"]
+script = ExtResource("14")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture = ExtResource("1")
+
+[node name="FirstPokemonSlot" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="FirstPokemonSlot"]
+position = Vector2(44, 47)
+texture = ExtResource("2")
+hframes = 2
+
+[node name="PokemonPartySprite" type="Sprite2D" parent="FirstPokemonSlot"]
+position = Vector2(18, 40)
+texture = ExtResource("3")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(30, 9, 70, 24)
+
+[node name="PokemonName" type="Sprite2D" parent="FirstPokemonSlot"]
+position = Vector2(68, 42)
+texture = ExtResource("3")
+region_enabled = true
+region_rect = Rect2(0, -1, 73, 10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FirstPokemonSlot"]
+libraries = {
+&"": SubResource("AnimationLibrary_phrp8")
+}
+autoplay = "Idle"
+
+[node name="LevelLabel" type="Label" parent="FirstPokemonSlot"]
+text = "4"
+
+[node name="HealthLabel" type="Label" parent="FirstPokemonSlot"]
+text = "23"
+
+[node name="MaxHealthLabel" type="Label" parent="FirstPokemonSlot"]
+text = "30"
+
+[node name="GenderIcon" type="Sprite2D" parent="FirstPokemonSlot"]
+position = Vector2(75, 52)
+texture = ExtResource("5")
+hframes = 2
+
+[node name="HealthBar" type="Sprite2D" parent="FirstPokemonSlot"]
+position = Vector2(56, 61)
+scale = Vector2(2, 1)
+texture = ExtResource("6")
+region_enabled = true
+region_rect = Rect2(24, 0, 24, 3)
+
+[node name="SecondPokemonSlot" type="Node2D" parent="."]
+position = Vector2(119, -26)
+
+[node name="Background" type="Sprite2D" parent="SecondPokemonSlot"]
+position = Vector2(44, 47)
+texture = ExtResource("7")
+hframes = 2
+
+[node name="PokemonPartySprite" type="Sprite2D" parent="SecondPokemonSlot"]
+position = Vector2(-16, 48)
+texture = ExtResource("8")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(30, 9, 70, 24)
+
+[node name="PokemonName" type="Sprite2D" parent="SecondPokemonSlot"]
+position = Vector2(35, 44)
+texture = ExtResource("8")
+region_enabled = true
+region_rect = Rect2(0, -1, 73, 10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SecondPokemonSlot"]
+libraries = {
+&"": SubResource("AnimationLibrary_h4ros")
+}
+autoplay = "Idle"
+
+[node name="LevelLabel" type="Label" parent="SecondPokemonSlot"]
+text = "4"
+
+[node name="HealthLabel" type="Label" parent="SecondPokemonSlot"]
+text = "23"
+
+[node name="MaxHealthLabel" type="Label" parent="SecondPokemonSlot"]
+text = "30"
+
+[node name="GenderIcon" type="Sprite2D" parent="SecondPokemonSlot"]
+position = Vector2(44, 54)
+texture = ExtResource("5")
+hframes = 2
+
+[node name="HealthBar" type="Sprite2D" parent="SecondPokemonSlot"]
+position = Vector2(89, 46)
+scale = Vector2(2, 1)
+texture = ExtResource("6")
+region_enabled = true
+region_rect = Rect2(24, 0, 24, 3)
+
+[node name="ThirdPokemonSlot" type="Node2D" parent="."]
+position = Vector2(119, -2)
+
+[node name="Background" type="Sprite2D" parent="ThirdPokemonSlot"]
+position = Vector2(44, 47)
+texture = ExtResource("7")
+hframes = 2
+
+[node name="PokemonPartySprite" type="Sprite2D" parent="ThirdPokemonSlot"]
+position = Vector2(-16, 48)
+texture = ExtResource("9")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(30, 9, 70, 24)
+
+[node name="PokemonName" type="Sprite2D" parent="ThirdPokemonSlot"]
+position = Vector2(35, 44)
+texture = ExtResource("9")
+region_enabled = true
+region_rect = Rect2(0, -1, 73, 10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ThirdPokemonSlot"]
+libraries = {
+&"": SubResource("AnimationLibrary_tekok")
+}
+autoplay = "Idle"
+
+[node name="LevelLabel" type="Label" parent="ThirdPokemonSlot"]
+text = "4"
+
+[node name="HealthLabel" type="Label" parent="ThirdPokemonSlot"]
+text = "23"
+
+[node name="MaxHealthLabel" type="Label" parent="ThirdPokemonSlot"]
+text = "30"
+
+[node name="GenderIcon" type="Sprite2D" parent="ThirdPokemonSlot"]
+position = Vector2(44, 54)
+texture = ExtResource("5")
+hframes = 2
+
+[node name="HealthBar" type="Sprite2D" parent="ThirdPokemonSlot"]
+position = Vector2(89, 46)
+scale = Vector2(2, 1)
+texture = ExtResource("6")
+region_enabled = true
+region_rect = Rect2(24, 0, 24, 3)
+
+[node name="FourthPokemonSlot" type="Node2D" parent="."]
+position = Vector2(119, 22)
+
+[node name="Background" type="Sprite2D" parent="FourthPokemonSlot"]
+position = Vector2(44, 47)
+texture = ExtResource("7")
+hframes = 2
+
+[node name="PokemonPartySprite" type="Sprite2D" parent="FourthPokemonSlot"]
+position = Vector2(-16, 48)
+texture = ExtResource("10")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(30, 9, 70, 24)
+
+[node name="PokemonName" type="Sprite2D" parent="FourthPokemonSlot"]
+position = Vector2(35, 44)
+texture = ExtResource("10")
+region_enabled = true
+region_rect = Rect2(0, -1, 73, 10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FourthPokemonSlot"]
+libraries = {
+&"": SubResource("AnimationLibrary_5bneb")
+}
+autoplay = "Idle"
+
+[node name="LevelLabel" type="Label" parent="FourthPokemonSlot"]
+text = "4"
+
+[node name="HealthLabel" type="Label" parent="FourthPokemonSlot"]
+text = "23"
+
+[node name="MaxHealthLabel" type="Label" parent="FourthPokemonSlot"]
+text = "30"
+
+[node name="GenderIcon" type="Sprite2D" parent="FourthPokemonSlot"]
+position = Vector2(44, 54)
+texture = ExtResource("5")
+hframes = 2
+
+[node name="HealthBar" type="Sprite2D" parent="FourthPokemonSlot"]
+position = Vector2(89, 46)
+scale = Vector2(2, 1)
+texture = ExtResource("6")
+region_enabled = true
+region_rect = Rect2(24, 0, 24, 3)
+
+[node name="FifthPokemonSlot" type="Node2D" parent="."]
+position = Vector2(119, 46)
+
+[node name="Background" type="Sprite2D" parent="FifthPokemonSlot"]
+position = Vector2(44, 47)
+texture = ExtResource("7")
+hframes = 2
+
+[node name="PokemonPartySprite" type="Sprite2D" parent="FifthPokemonSlot"]
+position = Vector2(-16, 48)
+texture = ExtResource("11")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(30, 9, 70, 24)
+
+[node name="PokemonName" type="Sprite2D" parent="FifthPokemonSlot"]
+position = Vector2(35, 44)
+texture = ExtResource("11")
+region_enabled = true
+region_rect = Rect2(0, -1, 73, 10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FifthPokemonSlot"]
+libraries = {
+&"": SubResource("AnimationLibrary_gnt8a")
+}
+autoplay = "Idle"
+
+[node name="LevelLabel" type="Label" parent="FifthPokemonSlot"]
+text = "4"
+
+[node name="HealthLabel" type="Label" parent="FifthPokemonSlot"]
+text = "23"
+
+[node name="MaxHealthLabel" type="Label" parent="FifthPokemonSlot"]
+text = "30"
+
+[node name="GenderIcon" type="Sprite2D" parent="FifthPokemonSlot"]
+position = Vector2(44, 54)
+texture = ExtResource("5")
+hframes = 2
+
+[node name="HealthBar" type="Sprite2D" parent="FifthPokemonSlot"]
+position = Vector2(89, 46)
+scale = Vector2(2, 1)
+texture = ExtResource("6")
+region_enabled = true
+region_rect = Rect2(24, 0, 24, 3)
+
+[node name="SixthPokemonSlot" type="Node2D" parent="."]
+position = Vector2(119, 70)
+
+[node name="Background" type="Sprite2D" parent="SixthPokemonSlot"]
+position = Vector2(44, 47)
+texture = ExtResource("7")
+hframes = 2
+
+[node name="PokemonPartySprite" type="Sprite2D" parent="SixthPokemonSlot"]
+position = Vector2(-16, 48)
+texture = ExtResource("12")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(30, 9, 70, 24)
+
+[node name="PokemonName" type="Sprite2D" parent="SixthPokemonSlot"]
+position = Vector2(35, 44)
+texture = ExtResource("12")
+region_enabled = true
+region_rect = Rect2(0, -1, 73, 10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SixthPokemonSlot"]
+libraries = {
+&"": SubResource("AnimationLibrary_56hw3")
+}
+autoplay = "Idle"
+
+[node name="LevelLabel" type="Label" parent="SixthPokemonSlot"]
+text = "4"
+
+[node name="HealthLabel" type="Label" parent="SixthPokemonSlot"]
+text = "23"
+
+[node name="MaxHealthLabel" type="Label" parent="SixthPokemonSlot"]
+text = "30"
+
+[node name="GenderIcon" type="Sprite2D" parent="SixthPokemonSlot"]
+position = Vector2(44, 54)
+texture = ExtResource("5")
+hframes = 2
+
+[node name="HealthBar" type="Sprite2D" parent="SixthPokemonSlot"]
+position = Vector2(89, 46)
+scale = Vector2(2, 1)
+texture = ExtResource("6")
+region_enabled = true
+region_rect = Rect2(24, 0, 24, 3)
+
+[node name="CancelSprite" type="Sprite2D" parent="."]
+position = Vector2(211, 144)
+texture = ExtResource("13")
+hframes = 2

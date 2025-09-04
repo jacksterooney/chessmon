@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://bflkcwtm6xvel"]
+
+[ext_resource type="Script" uid="uid://b8vmv46skufyd" path="res://pokemon/levels/level.gd" id="1_6e5gk"]
+[ext_resource type="TileSet" uid="uid://mpypoftmr5ea" path="res://pokemon/levels/tileset.tres" id="1_y3mly"]
+
+[node name="Level" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_6e5gk")
+
+[node name="CollisionStaticBodies" type="Node2D" parent="."]
+
+[node name="TileMapLayers" type="Node2D" parent="."]
+
+[node name="Ground" type="TileMapLayer" parent="TileMapLayers"]
+tile_set = ExtResource("1_y3mly")
+
+[node name="GroundDecoration" type="TileMapLayer" parent="TileMapLayers"]
+z_index = 1
+tile_set = ExtResource("1_y3mly")
+
+[node name="Objects" type="TileMapLayer" parent="TileMapLayers"]
+z_index = 2
+tile_set = ExtResource("1_y3mly")
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Interactables" type="Node2D" parent="."]
+
+[node name="NPCs" type="Node2D" parent="."]
+
+[node name="Doors" type="Node2D" parent="."]
+z_index = 2

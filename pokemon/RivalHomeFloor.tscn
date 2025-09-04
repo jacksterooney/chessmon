@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://dergf5ihppqqw"]
+
+[ext_resource type="Texture2D" uid="uid://xtgci30fsx7t" path="res://pokemon/Assets/Buildings/pallet town/rival_home.png" id="1_81rgj"]
+[ext_resource type="Texture2D" uid="uid://4d84r1d8iayc" path="res://pokemon/Assets/Buildings/pallet town/mat.png" id="2_jusv0"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(16, 176)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(208, 16)
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(128, 16)
+
+[sub_resource type="RectangleShape2D" id="5"]
+size = Vector2(64, 16)
+
+[node name="RivalHomeFloor" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture = ExtResource("1_81rgj")
+
+[node name="Mat" type="TextureRect" parent="."]
+offset_left = 56.0
+offset_top = 144.0
+offset_right = 88.0
+offset_bottom = 160.0
+texture = ExtResource("2_jusv0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-8, 88)
+shape = SubResource("1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(216, 88)
+shape = SubResource("1")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(104, 24)
+shape = SubResource("2")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(144, 152)
+shape = SubResource("4")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(32, 152)
+shape = SubResource("5")
+
+[node name="YSort" type="Node2D" parent="."]

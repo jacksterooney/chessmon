@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c44rsmvf4qmtm"]
+
+[ext_resource type="PackedScene" uid="uid://crh5lqj5p75qi" path="res://pokemon/levels/exteriors/towns/talberg.tscn" id="1_1kn7u"]
+[ext_resource type="PackedScene" uid="uid://b8u3eqlf50i6v" path="res://pokemon/levels/exteriors/routes/route_a1.tscn" id="2_8m866"]
+
+[node name="Overworld" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Talberg" parent="." instance=ExtResource("1_1kn7u")]
+
+[node name="RouteA1" parent="." instance=ExtResource("2_8m866")]
+position = Vector2(32, -880)

@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://csn2nieibhe5r"]
+
+[ext_resource type="Texture2D" uid="uid://c6o0utbr8unbh" path="res://pokemon/Assets/UI/menu_box_1.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cin1j8ipp24kx" path="res://pokemon/Assets/UI/ui_arrow_left_right.png" id="3"]
+[ext_resource type="Script" uid="uid://d1v20s68ibjvi" path="res://pokemon/Menu.gd" id="4"]
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("4")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control"]
+layout_mode = 0
+texture = ExtResource("1")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/NinePatchRect"]
+layout_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "POKeMON"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "BAG"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "Arkeve"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "SAVE"
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "OPTION"
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+text = "EXIT"
+
+[node name="TextureRect" type="TextureRect" parent="Control/NinePatchRect"]
+layout_mode = 0
+texture = ExtResource("3")
