@@ -13,11 +13,9 @@ config_version=5
 config/name="Chess"
 run/main_scene="uid://dth36rslaan6p"
 config/features=PackedStringArray("4.4")
-config/icon="res://chess/icon.png"
 
 [autoload]
 
-Pieces="*res://chess/Pieces.tscn"
 Utils="*res://pokemon/Autoload/utils.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
