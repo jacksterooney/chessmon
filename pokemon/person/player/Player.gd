@@ -68,13 +68,13 @@ func handle_held_input(delta) -> void:
 	var input_dir := Vector2i.ZERO
 
 	# Check for held input
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("up"):
 		input_dir = Vector2i.UP
-	elif Input.is_action_pressed("ui_down"):
+	elif Input.is_action_pressed("down"):
 		input_dir = Vector2i.DOWN
-	elif Input.is_action_pressed("ui_left"):
+	elif Input.is_action_pressed("left"):
 		input_dir = Vector2i.LEFT
-	elif Input.is_action_pressed("ui_right"):
+	elif Input.is_action_pressed("right"):
 		input_dir = Vector2i.RIGHT
 
 	# If input direction changed or stopped
