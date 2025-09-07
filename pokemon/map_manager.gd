@@ -18,28 +18,32 @@ var transition_type: int = TransitionType.NEW_MAP
 #endregion
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	load_new_map(initial_map_filepath)
 
 
-func transition_to_party_screen():
+func transition_to_party_screen() -> void:
 	$ScreenTransition/AnimationPlayer.play("FadeToBlack")
 	transition_type = TransitionType.PARTY_SCREEN
 
 
-func transition_exit_party_screen():
+func transition_exit_party_screen() -> void:
 	$ScreenTransition/AnimationPlayer.play("FadeToBlack")
 	transition_type = TransitionType.MENU_ONLY
 
 
-func transition_to_map(new_map_filepath: String, spawn_location, spawn_direction):
+func transition_to_map(
+		new_map_filepath: String, 
+		spawn_location: Vector2i, 
+		spawn_direction: Vector2i,
+		) -> void:
 	next_map_filepath = new_map_filepath
 	player_location = spawn_location
 	player_direction = spawn_direction
 	transition_type = TransitionType.NEW_MAP
 	$ScreenTransition/AnimationPlayer.play("FadeToBlack")
 	
-func finished_fading():
+func finished_fading() -> void:
 	match transition_type:
 		TransitionType.NEW_MAP:
 			load_new_map(next_map_filepath)
@@ -50,11 +54,11 @@ func finished_fading():
 	
 	$ScreenTransition/AnimationPlayer.play("FadeToNormal")
 
-func load_new_map(map_filepath: String):
+func load_new_map(map_filepath: String) -> void:
 	if current_map.get_child_count() > 0:
 		current_map.get_child(0).queue_free()
 			
-	var next_level_instance = load(map_filepath).instantiate()
+	var next_level_instance := load(map_filepath).instantiate() as Node2D
 	current_map.add_child(next_level_instance)
 
 	current_map_filepath = map_filepath

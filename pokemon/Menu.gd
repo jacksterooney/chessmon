@@ -10,23 +10,23 @@ var screen_loaded: int = ScreenLoaded.NOTHING
 
 var selected_option: int = 0
 
-func _ready():
+func _ready() -> void:
 	menu.visible = false
 	select_arrow.position.y = 6 + (selected_option % 6) * 15
 
-func load_party_screen():
+func load_party_screen() -> void:
 	menu.visible = false
 	screen_loaded = ScreenLoaded.PARTY_SCREEN
-	var party_screen = PokemonPartyScreen.instance()
+	var party_screen := PokemonPartyScreen.instance() as Node2D
 	add_child(party_screen)
 	
 	
-func unload_party_screen():
+func unload_party_screen() -> void:
 	menu.visible = true
 	screen_loaded = ScreenLoaded.JUST_MENU
 	remove_child($PokemonPartyScreen)
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	match screen_loaded:
 		ScreenLoaded.NOTHING:
 			if event.is_action_pressed("ui_menu"):
@@ -38,7 +38,7 @@ func _unhandled_input(event):
 		
 		ScreenLoaded.JUST_MENU:
 			if event.is_action_pressed("menu") or event.is_action_pressed("x"):
-				var player = Utils.get_player()
+				var player := Utils.get_player()
 				player.set_physics_process(true)
 				menu.visible = false
 				screen_loaded = ScreenLoaded.NOTHING

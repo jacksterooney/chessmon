@@ -28,10 +28,10 @@ func _ready() -> void:
 	current_movement_pattern = movement_pattern
 	start_tile_pos = current_tile_pos
 
-func _process(delta) -> void:
+func _process(delta: float) -> void:
 	handle_movement_pattern(delta)
 	
-func handle_movement_pattern(delta) -> void:
+func handle_movement_pattern(delta: float) -> void:
 	if is_moving:
 		return
 
@@ -43,7 +43,7 @@ func handle_movement_pattern(delta) -> void:
 		MovementPattern.WANDER:
 			handle_wander(delta)
 
-func handle_patrol(delta) -> void:
+func handle_patrol(delta: float) -> void:
 	if patrol_points.is_empty():
 		return
 
@@ -55,7 +55,7 @@ func handle_patrol(delta) -> void:
 		move_timer = 0.0
 
 
-func handle_wander(delta):
+func handle_wander(delta: float) -> void:
 	wander_timer += delta
 	if wander_timer >= randf_range(2.0, 5.0): # Random wander interval
 		var random_offset := Vector2i(
@@ -90,7 +90,7 @@ func get_direction_to_tile(target_tile: Vector2i) -> Vector2i:
 
 func start_conversation(player_position: Vector2) -> void:
 	var player_tile_pos := Vector2i(player_position / TILE_SIZE)
-	var dir_to_player = get_direction_to_tile(player_tile_pos)
+	var dir_to_player: Vector2i = get_direction_to_tile(player_tile_pos)
 	set_facing_direction(dir_to_player)
 	current_movement_pattern = MovementPattern.STATIONARY
 	
@@ -98,7 +98,7 @@ func start_conversation(player_position: Vector2) -> void:
 	Dialogic.start(timeline)
 	
 	
-func _create_timeline():
+func _create_timeline() -> void:
 	timeline = DialogicTimeline.new()
 	var events: Array[DialogicEvent] = []
 	for line in dialogue:
@@ -113,6 +113,6 @@ func _create_timeline():
 	timeline.events_processed = true
 
 
-func _on_timeline_ended():
+func _on_timeline_ended() -> void:
 	Dialogic.timeline_ended.disconnect(_on_timeline_ended)
 	current_movement_pattern = movement_pattern

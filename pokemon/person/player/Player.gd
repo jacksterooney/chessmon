@@ -27,12 +27,12 @@ var can_interact: bool       =  true
 #endregion
 
 #region @onready variables
-@onready var camera: Camera2D = $Camera2D
-@onready var shadow = $Shadow
+@onready var camera := $Camera2D as Camera2D
+@onready var shadow := $Shadow as Sprite2D
 #endregion
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	super()
 	shadow.visible = false
 	camera.make_current()
@@ -44,7 +44,7 @@ func _ready():
 	Dialogic.timeline_ended.connect(_on_dialogue_ended)
 
 
-func set_spawn(location: Vector2i, direction: Vector2i):
+func set_spawn(location: Vector2i, direction: Vector2i) -> void:
 	if anim_tree == null:
 		anim_tree = $AnimationTree as AnimationTree 
 
@@ -64,7 +64,7 @@ func _input(event: InputEvent) -> void:
 		handle_player_interaction()
 
 
-func handle_held_input(delta) -> void:
+func handle_held_input(delta: float) -> void:
 	var input_dir := Vector2i.ZERO
 
 	# Check for held input
@@ -103,13 +103,13 @@ func handle_held_input(delta) -> void:
 			is_initial_move = false
 
 
-func set_facing_direction(direction: Vector2i):
+func set_facing_direction(direction: Vector2i) -> void:
 	current_facing_dir = direction
 	anim_tree.set("parameters/Idle/blend_position", direction)
 	anim_tree.set("parameters/Walk/blend_position", direction)
 
 
-func try_move(direction: Vector2i):
+func try_move(direction: Vector2i) -> void:
 	var target_tile: Vector2i = current_tile_pos + direction
 
 	if can_move_to_tile(target_tile):
@@ -129,27 +129,27 @@ func can_move_into_door(tile_pos: Vector2i) -> Door:
 	return null
 
 
-func move_into_door(door: Door):
+func move_into_door(door: Door) -> void:
 	door.enter_door()
 	sprite.visible = false
 
 
-func handle_player_interaction():
+func handle_player_interaction() -> void:
 	# Check for held input
 	if can_interact:
 		var tile_pos: Vector2i =  current_tile_pos + current_facing_dir
 		var result             := query_tile(tile_pos)
 		if !result.is_empty():
-			var collider = result[0]["collider"]
+			var collider := result[0]["collider"] as CollisionObject2D
 			if collider.is_in_group("npcs"):
 				(collider as NPC).start_conversation(self.position)
 			elif collider.is_in_group("interactables"):
 				(collider as Interactable).start_interaction()
 
 
-func _on_dialogue_started():
+func _on_dialogue_started() -> void:
 	can_interact = false
 
 
-func _on_dialogue_ended():
+func _on_dialogue_ended() -> void:
 	can_interact = true

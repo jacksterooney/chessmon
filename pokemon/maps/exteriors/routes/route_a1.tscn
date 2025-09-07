@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://b8u3eqlf50i6v"]
+[gd_scene load_steps=5 format=4 uid="uid://b8u3eqlf50i6v"]
 
 [ext_resource type="PackedScene" uid="uid://bflkcwtm6xvel" path="res://pokemon/maps/map.tscn" id="1_25cqa"]
 [ext_resource type="PackedScene" uid="uid://dcljyjn0kpj44" path="res://pokemon/House.tscn" id="2_qbvny"]
 [ext_resource type="PackedScene" uid="uid://wmt2avmno6jg" path="res://pokemon/maps/objects/sign/sign.tscn" id="3_qbvny"]
+[ext_resource type="PackedScene" uid="uid://bi1wyokysx8p" path="res://pokemon/person/npc/trainer/trainer.tscn" id="4_qkpsw"]
 
 [node name="RouteA1" instance=ExtResource("1_25cqa")]
 is_exterior = true
@@ -21,3 +22,8 @@ position = Vector2(176, 192)
 
 [node name="Sign" parent="Objects" index="1" instance=ExtResource("3_qbvny")]
 position = Vector2(176, 784)
+
+[node name="Trainer" parent="NPCs" index="0" instance=ExtResource("4_qkpsw")]
+position = Vector2(192, 720)
+detection_range = 3
+dialogue = Array[String](["Test Dialogue!"])

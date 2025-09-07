@@ -1,7 +1,7 @@
 class_name Trainer
 extends NPC
 
-signal battle_initiated(trainer)
+signal battle_initiated(trainer: Trainer)
 
 #region @export variables
 @export var detection_range := 4  # tiles
@@ -11,6 +11,9 @@ signal battle_initiated(trainer)
 @export_category("Battle state")
 @export var defeated := false
 @export var can_battle_again := false
+
+@export_category("Dialogue")
+@export var pre_battle_dialogue: Array[String] = ["Hey! I challenge you to a battle!"]
 #endregion
 
 #region regular variables
@@ -19,9 +22,9 @@ var has_spotted_player := false
 var is_in_battle := false
 #endregion
 
-@onready var sight_ray = $SightRay2D
+@onready var sight_ray := $SightRay2D as RayCast2D
 
-func _ready():
+func _ready() -> void:
 	super()
 
 	# Get player reference
@@ -31,31 +34,13 @@ func _ready():
 	# Setup raycast
 	setup_sight_ray()
 
-func _process(delta) -> void:
+func _process(delta: float) -> void:
 	if is_in_battle or has_spotted_player:
 		return
 
-	handle_movement_pattern(delta)
+	super(delta)
+
 	check_line_of_sight()
-	
-func try_move_towards(target_tile: Vector2i) -> bool:
-	# Simple pathfinding - move one tile toward target
-	var diff: Vector2i = target_tile - current_tile_pos
-	var move_dir := Vector2i.ZERO
-
-	if abs(diff.x) > abs(diff.y):
-		move_dir = Vector2i.RIGHT if diff.x > 0 else Vector2i.LEFT
-	elif diff.y != 0:
-		move_dir = Vector2i.UP if diff.y < 0 else Vector2i.DOWN
-
-	if move_dir != Vector2i.ZERO:
-		sight_direction = move_dir
-		setup_sight_ray()  # Update raycast when direction changes
-		if can_move_to_tile(current_tile_pos + move_dir):
-			move_to_tile(current_tile_pos + move_dir)
-			sight_direction = move_dir  # Face movement direction
-			return true
-	return false
 
 func setup_sight_ray() -> void:
 	if not sight_ray:
@@ -75,7 +60,7 @@ func check_line_of_sight() -> void:
 	sight_ray.force_raycast_update()
 
 	if sight_ray.is_colliding():
-		var collider = sight_ray.get_collider()
+		var collider: Object = sight_ray.get_collider()
 		if collider and collider.is_in_group("player") and not has_spotted_player:
 			spot_player()
 
@@ -99,12 +84,10 @@ func approach_player() -> void:
 	if not player_reference:
 		return
 
-	var player_tile_pos := Vector2i(player_reference.position / TILE_SIZE)
+	var player_tile_pos := Vector2i(player_reference.global_position / TILE_SIZE)
 	var move_dir := get_direction_to_tile(player_tile_pos)
 
 	if move_dir != Vector2i.ZERO:
-		sight_direction = move_dir
-		setup_sight_ray()  # Update raycast direction
 		if can_move_to_tile(current_tile_pos + move_dir):
 			await move_to_tile(current_tile_pos + move_dir)
 
@@ -125,16 +108,16 @@ func initiate_battle() -> void:
 	print(trainer_name + " wants to battle!")
 	battle_initiated.emit(self)
 
-func show_defeated_dialogue():
+func show_defeated_dialogue() -> void:
 	print(trainer_name + ": You're really strong! I need to train more!")
 
-func set_defeated():
+func set_defeated() -> void:
 	defeated = true
 	has_spotted_player = false
 	is_in_battle = false
 	print(trainer_name + " was defeated!")
 
-func reset_trainer():
+func reset_trainer() -> void:
 	defeated = false
 	has_spotted_player = false
 	is_in_battle = false

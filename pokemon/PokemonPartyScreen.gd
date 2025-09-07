@@ -14,17 +14,17 @@ var selected_option: int = Options.FIRST_SLOT
 }
 
 
-func unset_active_option():
+func unset_active_option() -> void:
 	options[selected_option].frame = 0
 	
-func set_active_option():
+func set_active_option() -> void:
 	options[selected_option].frame = 1
 
-func _ready():
+func _ready() -> void:
 	set_active_option()
 
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_down"):
 		unset_active_option()
 		selected_option = (selected_option + 1) % 7

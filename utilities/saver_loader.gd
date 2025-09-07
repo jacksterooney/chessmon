@@ -9,7 +9,7 @@ func _process(_delta: float) -> void:
 	elif Input.is_action_just_pressed("quickload"):
 		load_game()
 	
-func save_game():
+func save_game() -> void:
 	print("Saving game...")
 	var saved_game := SavedGame.new()
 	
@@ -22,7 +22,7 @@ func save_game():
 	ResourceSaver.save(saved_game, "user://savegame.tres")
 	
 
-func load_game():
+func load_game() -> void:
 	print("Loading game...")
 	var saved_game: SavedGame = load("user://savegame.tres") as SavedGame
 

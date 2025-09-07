@@ -9,10 +9,10 @@ func _ready() -> void:
 	add_to_group("interactables")
 	_create_timeline()
 
-func start_interaction():
+func start_interaction() -> void:
 	Dialogic.start(timeline)
 	
-func _create_timeline():
+func _create_timeline() -> void:
 	timeline = DialogicTimeline.new()
 	var events: Array[DialogicEvent] = []
 	for line in dialogue:

@@ -37,10 +37,10 @@ func _ready() -> void:
 	anim_tree.set("parameters/Walk/blend_position", current_facing_dir)
 	anim_tree.set("parameters/Turn/blend_position", current_facing_dir)
 
-	current_tile_pos = position / TILE_SIZE
+	current_tile_pos = global_position / TILE_SIZE
 
 
-func set_facing_direction(direction: Vector2i):
+func set_facing_direction(direction: Vector2i) -> void:
 	current_facing_dir = direction
 	anim_tree.set("parameters/Idle/blend_position", direction)
 	anim_tree.set("parameters/Walk/blend_position", direction)

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dth36rslaan6p"]
+[gd_scene load_steps=5 format=3 uid="uid://dth36rslaan6p"]
 
 [ext_resource type="Script" uid="uid://dipmlkh8vl7xq" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://tch6cn6nleaq" path="res://pokemon/MapManager.tscn" id="2_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://bcyx0ktlqeh3p" path="res://pokemon/person/player/Player.tscn" id="3_7mycd"]
 [ext_resource type="AudioStream" uid="uid://b2hwmrxcnsefj" path="res://pokemon/audio/music/littleroot.mp3" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://d35yj70vfpnj0" path="res://utilities/saver_loader.gd" id="4_1bvp3"]
 
@@ -11,7 +10,6 @@ script = ExtResource("1_h2yge")
 
 [node name="MapManager" parent="." instance=ExtResource("2_1bvp3")]
 unique_name_in_owner = true
-player_scene = ExtResource("3_7mycd")
 
 [node name="AudioManager" type="Node" parent="."]
 

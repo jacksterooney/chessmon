@@ -22,7 +22,8 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [debug]
 
 file_logging/enable_file_logging=true
-gdscript/warnings/return_value_discarded=false
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/integer_division=0
 
 [dialogic]
 
