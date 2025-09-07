@@ -1,1 +1,6 @@
+res://utilities/saver_loader.gd
+res://main.tscn
 res://pokemon/dialogic/styles/style.tres
+res://pokemon/levels/tileset.tres
+res://pokemon/person/Person.gd
+res://pokemon/person/npc/NPC.gd

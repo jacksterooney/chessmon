@@ -17,6 +17,7 @@ var current_patrol_index := 0
 var wander_timer := 0.0
 var current_movement_pattern: MovementPattern
 var timeline: DialogicTimeline
+var start_tile_pos: Vector2i
 #endregion
 
 
@@ -25,6 +26,7 @@ func _ready() -> void:
 	add_to_group("npcs")
 	_create_timeline()
 	current_movement_pattern = movement_pattern
+	start_tile_pos = current_tile_pos
 
 func _process(delta) -> void:
 	handle_movement_pattern(delta)

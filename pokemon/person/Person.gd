@@ -16,7 +16,6 @@ var current_facing_dir := Vector2i.DOWN
 var is_moving          := false
 var move_timer: float  =  0.0
 var current_tile_pos   := Vector2i.ZERO
-var start_tile_pos     := Vector2i.ZERO
 
 #endregion
 
@@ -38,8 +37,7 @@ func _ready() -> void:
 	anim_tree.set("parameters/Walk/blend_position", current_facing_dir)
 	anim_tree.set("parameters/Turn/blend_position", current_facing_dir)
 
-	start_tile_pos = position / TILE_SIZE
-	current_tile_pos = start_tile_pos
+	current_tile_pos = position / TILE_SIZE
 
 
 func change_facing_direction(direction: Vector2i):
