@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://wmt2avmno6jg"]
+
+[ext_resource type="Script" uid="uid://d1idjlg7hmple" path="res://pokemon/maps/interactable.gd" id="1_524pn"]
+[ext_resource type="Texture2D" uid="uid://58q0wsxapl1v" path="res://pokemon/maps/objects/sign/sign.aseprite" id="1_wxnla"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_524pn"]
+size = Vector2(16, 17)
+
+[node name="Sign" type="StaticBody2D"]
+z_index = 2
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_524pn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 9)
+texture = ExtResource("1_wxnla")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8.5)
+shape = SubResource("RectangleShape2D_524pn")

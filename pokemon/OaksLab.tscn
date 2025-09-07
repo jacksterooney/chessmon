@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bqyl2dnls2tak" path="res://pokemon/Assets/Buildings/pallet town/oaks_lab_interior.png" id="1"]
 [ext_resource type="PackedScene" uid="uid://bcyx0ktlqeh3p" path="res://pokemon/person/player/Player.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://38kjnrbrefvg" path="res://pokemon/levels/door/door.tscn" id="3"]
-[ext_resource type="TileSet" uid="uid://mpypoftmr5ea" path="res://pokemon/levels/tileset.tres" id="3_kwh0p"]
+[ext_resource type="PackedScene" uid="uid://38kjnrbrefvg" path="res://pokemon/maps/door/door.tscn" id="3"]
+[ext_resource type="TileSet" uid="uid://mpypoftmr5ea" path="res://pokemon/maps/tileset.tres" id="3_kwh0p"]
 [ext_resource type="Texture2D" uid="uid://4d84r1d8iayc" path="res://pokemon/Assets/Buildings/pallet town/mat.png" id="4"]
 
 [sub_resource type="RectangleShape2D" id="1"]

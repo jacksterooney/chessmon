@@ -44,12 +44,16 @@ func _ready():
 	Dialogic.timeline_ended.connect(_on_dialogue_ended)
 
 
-func set_spawn(location: Vector2, direction: Vector2):
+func set_spawn(location: Vector2i, direction: Vector2i):
+	if anim_tree == null:
+		anim_tree = $AnimationTree as AnimationTree 
+
 	anim_tree.set("parameters/Idle/blend_position", direction)
 	anim_tree.set("parameters/Walk/blend_position", direction)
 	anim_tree.set("parameters/Turn/blend_position", direction)
 	global_position = location
 	current_tile_pos = position / TILE_SIZE
+	set_facing_direction(direction)
 
 
 func _process(delta: float) -> void:
@@ -80,7 +84,7 @@ func handle_held_input(delta) -> void:
 		is_initial_move = true
 
 		if input_dir != Vector2i.ZERO:
-			change_facing_direction(current_input_dir)
+			set_facing_direction(current_input_dir)
 
 		# Immediate move on new input
 		if input_dir != Vector2i.ZERO and not is_moving:
@@ -99,7 +103,7 @@ func handle_held_input(delta) -> void:
 			is_initial_move = false
 
 
-func change_facing_direction(direction: Vector2i):
+func set_facing_direction(direction: Vector2i):
 	current_facing_dir = direction
 	anim_tree.set("parameters/Idle/blend_position", direction)
 	anim_tree.set("parameters/Walk/blend_position", direction)

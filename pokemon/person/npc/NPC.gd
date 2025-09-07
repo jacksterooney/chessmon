@@ -71,7 +71,7 @@ func try_move_towards(target_tile: Vector2i) -> bool:
 	var move_dir := get_direction_to_tile(target_tile)
 	if move_dir != Vector2i.ZERO:
 		if can_move_to_tile(current_tile_pos + move_dir):
-			change_facing_direction(move_dir)
+			set_facing_direction(move_dir)
 			move_to_tile(current_tile_pos + move_dir)
 			return true
 	return false
@@ -91,7 +91,7 @@ func get_direction_to_tile(target_tile: Vector2i) -> Vector2i:
 func start_conversation(player_position: Vector2) -> void:
 	var player_tile_pos := Vector2i(player_position / TILE_SIZE)
 	var dir_to_player = get_direction_to_tile(player_tile_pos)
-	change_facing_direction(dir_to_player)
+	set_facing_direction(dir_to_player)
 	current_movement_pattern = MovementPattern.STATIONARY
 	
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
