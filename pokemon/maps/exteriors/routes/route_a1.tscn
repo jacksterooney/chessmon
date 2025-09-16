@@ -26,4 +26,3 @@ position = Vector2(176, 784)
 [node name="Trainer" parent="NPCs" index="0" instance=ExtResource("4_qkpsw")]
 position = Vector2(192, 720)
 detection_range = 3
-dialogue = Array[String](["Test Dialogue!"])

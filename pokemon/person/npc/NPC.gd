@@ -6,7 +6,7 @@ enum MovementPattern {STATIONARY, PATROL, WANDER}
 #endregion
 
 #region @export variables
-@export var dialogue: Array[String]
+@export var interaction_dialogue: Array[String]
 @export var movement_pattern := MovementPattern.STATIONARY
 @export var patrol_points: Array[Vector2i] = []
 @export var wander_area := 2 # tiles in each direction from start
@@ -16,7 +16,7 @@ enum MovementPattern {STATIONARY, PATROL, WANDER}
 var current_patrol_index := 0
 var wander_timer := 0.0
 var current_movement_pattern: MovementPattern
-var timeline: DialogicTimeline
+var interaction_timeline: DialogicTimeline
 var start_tile_pos: Vector2i
 #endregion
 
@@ -24,7 +24,7 @@ var start_tile_pos: Vector2i
 func _ready() -> void:
 	super ()
 	add_to_group("npcs")
-	_create_timeline()
+	interaction_timeline = _create_timeline(interaction_dialogue)
 	current_movement_pattern = movement_pattern
 	start_tile_pos = current_tile_pos
 
@@ -94,12 +94,16 @@ func start_conversation(player_position: Vector2) -> void:
 	set_facing_direction(dir_to_player)
 	current_movement_pattern = MovementPattern.STATIONARY
 	
+	start_dialogue(interaction_timeline)
+
+
+func start_dialogue(timeline: DialogicTimeline) -> void:
 	Dialogic.timeline_ended.connect(_on_timeline_ended)
 	Dialogic.start(timeline)
-	
-	
-func _create_timeline() -> void:
-	timeline = DialogicTimeline.new()
+
+
+func _create_timeline(dialogue: Array[String]) -> DialogicTimeline:
+	var timeline := DialogicTimeline.new()
 	var events: Array[DialogicEvent] = []
 	for line in dialogue:
 		var event := DialogicTextEvent.new()
@@ -111,6 +115,7 @@ func _create_timeline() -> void:
 	
 	timeline.events = events
 	timeline.events_processed = true
+	return timeline
 
 
 func _on_timeline_ended() -> void:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=42 format=3 uid="uid://bi1wyokysx8p"]
+[gd_scene load_steps=43 format=3 uid="uid://bi1wyokysx8p"]
 
 [ext_resource type="Script" uid="uid://buix7mmv4s8fp" path="res://pokemon/person/npc/trainer/trainer.gd" id="1_1auvx"]
 [ext_resource type="Texture2D" uid="uid://ccwsubc8yul7p" path="res://pokemon/person/npc/Male_Blonde_Spritesheett.png" id="2_hygoj"]
+[ext_resource type="AudioStream" uid="uid://b7v1mf3re7u1o" path="res://pokemon/person/npc/trainer/alert.mp3" id="3_ysbgh"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(16, 16)
@@ -493,3 +494,6 @@ parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="SightRay2D" type="RayCast2D" parent="."]
 position = Vector2(8, 8)
+
+[node name="AlertAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ysbgh")

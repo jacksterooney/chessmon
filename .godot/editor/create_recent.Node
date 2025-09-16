@@ -1,9 +1,9 @@
-Node
+AudioStreamPlayer2D
+TileMapLayer
 Node2D
+Node
 CollisionShape2D
 StaticBody2D
-TileMapLayer
 RayCast2D
-AudioStreamPlayer2D
 CharacterBody2D
 AnimationTree

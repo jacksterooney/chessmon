@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b8vmv46skufyd" path="res://pokemon/maps/map.gd" id="1_6e5gk"]
 [ext_resource type="TileSet" uid="uid://mpypoftmr5ea" path="res://pokemon/maps/tileset.tres" id="1_y3mly"]
 
-[node name="Level" type="Node2D"]
+[node name="Map" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_6e5gk")
 

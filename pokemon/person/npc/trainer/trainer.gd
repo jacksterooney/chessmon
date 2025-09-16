@@ -1,7 +1,8 @@
 class_name Trainer
 extends NPC
 
-signal battle_initiated(trainer: Trainer)
+signal spotted_player
+signal initiated_battle(trainer: Trainer)
 
 #region @export variables
 @export var detection_range := 4  # tiles
@@ -20,6 +21,7 @@ signal battle_initiated(trainer: Trainer)
 var player_reference: Player = null
 var has_spotted_player := false
 var is_in_battle := false
+var pre_battle_timeline: DialogicTimeline
 #endregion
 
 @onready var sight_ray := $SightRay2D as RayCast2D
@@ -30,9 +32,10 @@ func _ready() -> void:
 	# Get player reference
 	await get_tree().process_frame
 	player_reference = Utils.get_player()
+	add_to_group("trainers")
 
-	# Setup raycast
-	setup_sight_ray()
+	_setup_sight_ray()
+	pre_battle_timeline = _create_timeline(pre_battle_dialogue)
 
 func _process(delta: float) -> void:
 	if is_in_battle or has_spotted_player:
@@ -42,7 +45,7 @@ func _process(delta: float) -> void:
 
 	check_line_of_sight()
 
-func setup_sight_ray() -> void:
+func _setup_sight_ray() -> void:
 	if not sight_ray:
 		return
 
@@ -64,21 +67,19 @@ func check_line_of_sight() -> void:
 		if collider and collider.is_in_group("player") and not has_spotted_player:
 			spot_player()
 
+
 func spot_player() -> void:
 	if defeated and not can_battle_again:
 		return
 
 	has_spotted_player = true
 	print(trainer_name + " spotted the player!")
-
-	# Stop current movement
-	var current_tween := get_tween()
-	if current_tween:
-		current_tween.kill()
-	is_moving = false
+	spotted_player.emit()
 
 	# Move toward player
+	$AlertAudioPlayer.play()
 	approach_player()
+
 
 func approach_player() -> void:
 	if not player_reference:
@@ -105,8 +106,9 @@ func initiate_battle() -> void:
 		return
 
 	is_in_battle = true
-	print(trainer_name + " wants to battle!")
-	battle_initiated.emit(self)
+	print(trainer_name + " initiated a battle!")
+	start_dialogue(pre_battle_timeline)
+	initiated_battle.emit(self)
 
 func show_defeated_dialogue() -> void:
 	print(trainer_name + ": You're really strong! I need to train more!")

@@ -22,8 +22,9 @@ var player_state             := PlayerState.IDLE
 var current_input_dir        := Vector2i.ZERO
 var stop_input               := false
 var is_initial_move: bool    =  true
-var can_interact: bool       =  true
 
+var can_interact: bool       =  true
+var can_move: bool		     =  true
 #endregion
 
 #region @onready variables
@@ -65,6 +66,9 @@ func _input(event: InputEvent) -> void:
 
 
 func handle_held_input(delta: float) -> void:
+	if !can_move:
+		return
+
 	var input_dir := Vector2i.ZERO
 
 	# Check for held input
@@ -105,8 +109,10 @@ func handle_held_input(delta: float) -> void:
 
 func set_facing_direction(direction: Vector2i) -> void:
 	current_facing_dir = direction
-	anim_tree.set("parameters/Idle/blend_position", direction)
-	anim_tree.set("parameters/Walk/blend_position", direction)
+
+	var vector_2_direction := Vector2(direction)
+	anim_tree.set("parameters/Idle/blend_position", vector_2_direction)
+	anim_tree.set("parameters/Walk/blend_position", vector_2_direction)
 
 
 func try_move(direction: Vector2i) -> void:

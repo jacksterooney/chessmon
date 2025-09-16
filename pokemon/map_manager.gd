@@ -8,7 +8,7 @@ var current_map_filepath: String = ""
 var next_map_filepath: String = ""
 
 @export var player_location: Vector2  = Vector2(0, 0)
-@export var player_direction: Vector2 = Vector2(0, 0)
+@export var player_direction: Vector2 = Vector2(0, 1)
 
 enum TransitionType { NEW_MAP, PARTY_SCREEN, MENU_ONLY }
 var transition_type: int = TransitionType.NEW_MAP
@@ -21,6 +21,10 @@ var transition_type: int = TransitionType.NEW_MAP
 func _ready() -> void:
 	load_new_map(initial_map_filepath)
 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("load_test_map"):
+		player_location = Vector2i(112, 64)
+		load_new_map("res://pokemon/maps/test/test_map.tscn")
 
 func transition_to_party_screen() -> void:
 	$ScreenTransition/AnimationPlayer.play("FadeToBlack")

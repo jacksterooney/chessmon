@@ -21,7 +21,7 @@ var current_tile_pos   := Vector2i.ZERO
 
 #region @onready variables
 @onready var anim_tree: AnimationTree = $AnimationTree
-@onready var anim_state = anim_tree.get("parameters/playback")
+@onready var anim_state: AnimationNodeStateMachinePlayback = anim_tree.get("parameters/playback")
 #endregion
 
 #region @onready variables
@@ -56,7 +56,7 @@ func move_to_tile(target_tile: Vector2i) -> void:
 	var target_pos := Vector2(target_tile * TILE_SIZE)
 
 	var tween := create_tween()
-	tween.tween_property(self, "position", target_pos, move_duration)
+	tween.tween_property(self, "global_position", target_pos, move_duration)
 	anim_state.travel("Walk")
 	await tween.finished
 
