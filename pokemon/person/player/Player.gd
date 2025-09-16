@@ -49,9 +49,6 @@ func set_spawn(location: Vector2i, direction: Vector2i) -> void:
 	if anim_tree == null:
 		anim_tree = $AnimationTree as AnimationTree 
 
-	anim_tree.set("parameters/Idle/blend_position", direction)
-	anim_tree.set("parameters/Walk/blend_position", direction)
-	anim_tree.set("parameters/Turn/blend_position", direction)
 	global_position = location
 	current_tile_pos = position / TILE_SIZE
 	set_facing_direction(direction)

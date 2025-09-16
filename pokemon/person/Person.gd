@@ -33,17 +33,18 @@ var current_tile_pos   := Vector2i.ZERO
 func _ready() -> void:
 	sprite.visible = true
 	anim_tree.active = true
-	anim_tree.set("parameters/Idle/blend_position", current_facing_dir)
-	anim_tree.set("parameters/Walk/blend_position", current_facing_dir)
-	anim_tree.set("parameters/Turn/blend_position", current_facing_dir)
+	set_facing_direction(current_facing_dir)
 
 	current_tile_pos = global_position / TILE_SIZE
 
 
 func set_facing_direction(direction: Vector2i) -> void:
 	current_facing_dir = direction
-	anim_tree.set("parameters/Idle/blend_position", direction)
-	anim_tree.set("parameters/Walk/blend_position", direction)
+
+	var vector_2_direction := Vector2(direction)
+	anim_tree.set("parameters/Idle/blend_position", vector_2_direction)
+	anim_tree.set("parameters/Walk/blend_position", vector_2_direction)
+	anim_tree.set("parameters/Turn/blend_position", vector_2_direction)
 
 
 func can_move_to_tile(tile_pos: Vector2i) -> bool:
