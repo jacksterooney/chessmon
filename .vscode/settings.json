@@ -1,4 +1,11 @@
 {
-    "godotTools.editorPath.godot4": "/home/jadler/Desktop/godot.x86_64",
-    "editor.rulers": [80, 100],
+    "godotTools.editorPath.godot4": "/Users/jadler/Desktop/Godot 4.4.1.app",
+    "editor.rulers": [
+        80,
+        100
+    ],
+    "cSpell.words": [
+        "elif",
+        "onready"
+    ],
 }

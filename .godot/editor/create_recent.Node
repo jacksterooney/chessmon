@@ -1,3 +1,6 @@
+TextureRect
+ColorRect
+Control
 AudioStreamPlayer2D
 TileMapLayer
 Node2D

@@ -1,51 +1,50 @@
-[gd_scene load_steps=4 format=3 uid="uid://csn2nieibhe5r"]
+[gd_scene load_steps=5 format=3 uid="uid://csn2nieibhe5r"]
 
-[ext_resource type="Texture2D" uid="uid://c6o0utbr8unbh" path="res://pokemon/Assets/UI/menu_box_1.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://cin1j8ipp24kx" path="res://pokemon/Assets/UI/ui_arrow_left_right.png" id="3"]
+[ext_resource type="PackedScene" uid="uid://bgi0sav8rl0ue" path="res://pokemon/menus/game_menu.tscn" id="2_6ba3v"]
+[ext_resource type="Texture2D" uid="uid://dfxe51rvrieeg" path="res://main_menu/background.aseprite" id="3_bhaqi"]
 [ext_resource type="Script" uid="uid://d1v20s68ibjvi" path="res://pokemon/Menu.gd" id="4"]
+[ext_resource type="FontFile" uid="uid://dfsika51djlva" path="res://fonts/PixelatedEleganceRegular-ovyAA.ttf" id="4_iw1lk"]
 
 [node name="Menu" type="CanvasLayer"]
 script = ExtResource("4")
 
-[node name="Control" type="Control" parent="."]
+[node name="GameMenu" parent="." instance=ExtResource("2_6ba3v")]
+visible = false
+
+[node name="MainMenu" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Control"]
+[node name="ColorRect" type="TextureRect" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_bhaqi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
 layout_mode = 0
-texture = ExtResource("1")
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
+offset_left = 160.0
+offset_top = 64.0
+offset_right = 232.0
+offset_bottom = 268.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/NinePatchRect"]
-layout_mode = 0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu/VBoxContainer"]
 layout_mode = 2
-text = "POKeMON"
+theme_override_fonts/normal_font = ExtResource("4_iw1lk")
+theme_override_font_sizes/normal_font_size = 9
+text = "New Game"
+fit_content = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="MainMenu/VBoxContainer"]
 layout_mode = 2
-text = "BAG"
-
-[node name="RichTextLabel3" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-text = "Arkeve"
-
-[node name="RichTextLabel4" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-text = "SAVE"
-
-[node name="RichTextLabel5" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-text = "OPTION"
-
-[node name="RichTextLabel6" type="RichTextLabel" parent="Control/NinePatchRect/VBoxContainer"]
-layout_mode = 2
-text = "EXIT"
-
-[node name="TextureRect" type="TextureRect" parent="Control/NinePatchRect"]
-layout_mode = 0
-texture = ExtResource("3")
+theme_override_fonts/normal_font = ExtResource("4_iw1lk")
+theme_override_font_sizes/normal_font_size = 9
+text = "Quit"
+fit_content = true

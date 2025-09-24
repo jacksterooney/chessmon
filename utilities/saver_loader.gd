@@ -3,12 +3,14 @@ extends Node
 
 @onready var map_manager := %MapManager as MapManager
 
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("quicksave"):
 		save_game()
 	elif Input.is_action_just_pressed("quickload"):
 		load_game()
-	
+
+
 func save_game() -> void:
 	print("Saving game...")
 	var saved_game := SavedGame.new()
@@ -25,6 +27,9 @@ func save_game() -> void:
 func load_game() -> void:
 	print("Loading game...")
 	var saved_game: SavedGame = load("user://savegame.tres") as SavedGame
+	if saved_game == null:
+		print("No saved game found.")
+		return
 
 	map_manager.load_new_map(saved_game.current_map_filepath)
 	
