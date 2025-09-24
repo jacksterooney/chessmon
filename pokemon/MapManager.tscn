@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://tch6cn6nleaq"]
+[gd_scene load_steps=6 format=3 uid="uid://tch6cn6nleaq"]
 
 [ext_resource type="Script" uid="uid://n2ne5rq237qn" path="res://pokemon/map_manager.gd" id="1_fwcnh"]
 [ext_resource type="PackedScene" uid="uid://bcyx0ktlqeh3p" path="res://pokemon/person/player/Player.tscn" id="2_b7pun"]
-[ext_resource type="PackedScene" uid="uid://csn2nieibhe5r" path="res://pokemon/Menu.tscn" id="3"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "FadeToBlack"
@@ -61,8 +60,6 @@ initial_map_filepath = "uid://2mat31d0e6bj"
 player_location = Vector2(80, 80)
 
 [node name="CurrentMap" type="Node2D" parent="."]
-
-[node name="Menu" parent="." instance=ExtResource("3")]
 
 [node name="ScreenTransition" type="CanvasLayer" parent="."]
 

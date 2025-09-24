@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgi0sav8rl0ue"]
+[gd_scene load_steps=4 format=3 uid="uid://bgi0sav8rl0ue"]
 
 [ext_resource type="Texture2D" uid="uid://c6o0utbr8unbh" path="res://pokemon/Assets/UI/menu_box_1.png" id="1_ghsb6"]
+[ext_resource type="Script" uid="uid://7dbtcmqd801a" path="res://pokemon/menus/game_menu.gd" id="1_jre4t"]
 [ext_resource type="Texture2D" uid="uid://cin1j8ipp24kx" path="res://pokemon/Assets/UI/ui_arrow_left_right.png" id="2_jre4t"]
 
 [node name="GameMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_jre4t")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 0

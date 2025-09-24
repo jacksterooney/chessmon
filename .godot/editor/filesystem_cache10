@@ -1,7 +1,7 @@
 bd8b7a4084b1d03d7506a69e643bafa0
-::res://::1758746161
-main.gd::GDScript/GDScript::7752487251715644838::1757452605::0::1::::<>Node<><>0<>0<><>::
-main.tscn::PackedScene::8509057081092087361::1758744740::0::1::::<><><>0<>0<><>::uid://dipmlkh8vl7xq::::res://main.gd<>uid://tch6cn6nleaq::::res://pokemon/MapManager.tscn<>uid://b2hwmrxcnsefj::::res://pokemon/audio/music/littleroot.mp3<>uid://d35yj70vfpnj0::::res://utilities/saver_loader.gd
+::res://::1758751489
+main.gd::GDScript::7752487251715644838::1758751443::0::1::::<>Node<><>0<>0<><>::
+main.tscn::PackedScene::8509057081092087361::1758751465::0::1::::<><><>0<>0<><>::uid://dipmlkh8vl7xq::::res://main.gd<>uid://tch6cn6nleaq::::res://pokemon/MapManager.tscn<>uid://bgi0sav8rl0ue::::res://pokemon/menus/game_menu.tscn<>uid://b2hwmrxcnsefj::::res://pokemon/audio/music/littleroot.mp3<>uid://d35yj70vfpnj0::::res://utilities/saver_loader.gd<>res://main_menu/main_menu.gd<>res://main_menu/background.aseprite<>uid://dfsika51djlva::::res://fonts/PixelatedEleganceRegular-ovyAA.ttf<>uid://cin1j8ipp24kx::::res://pokemon/Assets/UI/ui_arrow_left_right.png
 ::res://addons/::1757452605
 ::res://addons/AsepriteWizard/::1757452605
 plugin.cfg::TextFile/TextFile::-1::1757452605::0::1::::<><><>0<>0<><>::
@@ -718,19 +718,20 @@ TimelineResourceSaver.gd::GDScript/GDScript::5858275865011403433::1757452605::0:
 ::res://fonts/::1757452605
 MedodicaRegular.otf::FontFile/FontFile::6244543370983541305::1757452605::1757452605::1::::<><><>0<>0<>54e6a00af20173cb289d647f24766f8f<>res://.godot/imported/MedodicaRegular.otf-644b3da3cef3940a3f190b55f5444acd.fontdata::
 PixelatedEleganceRegular-ovyAA.ttf::FontFile/FontFile::7547868710253551406::1757452605::1757452605::1::::<><><>0<>0<>6b146b02a1ef2f39e8d2806b317278f4<>res://.godot/imported/PixelatedEleganceRegular-ovyAA.ttf-d240f00e2fa7aed31f25f654a1ab4a2b.fontdata::
-::res://main_menu/::1758746172
-background.aseprite::PortableCompressedTexture2D::7557984792247012302::1758746172::1758746271::1::::<><><>0<>0<>4815b38aba2f285acf852f0a5b8c8ea4<>res://.godot/imported/background.aseprite-62edd6104d2ae43f08706ce4b3640cee.res::
-::res://pokemon/::1758745261
+::res://main_menu/::1758751341
+background.aseprite::PortableCompressedTexture2D::7557984792247012302::1758746172::1758751490::1::::<><><>0<>0<>4815b38aba2f285acf852f0a5b8c8ea4<>res://.godot/imported/background.aseprite-62edd6104d2ae43f08706ce4b3640cee.res::
+main_menu.gd::GDScript::4798034922306815096::1758751184::0::1::::<>Control<><>0<>0<><>::
+::res://menu_manager/::1758751489
+::res://pokemon/::1758751489
 GrassStepEffect.gd::GDScript/GDScript::3665510743454188587::1757452605::0::1::::<>AnimatedSprite2D<><>0<>0<><>::
 GrassStepEffect.tscn::PackedScene/PackedScene::3700382000461887700::1757452605::0::1::::<><><>0<>0<><>::uid://n82ov3ocgb1e::::res://pokemon/Assets/Grass/grass_step_animation.png<>uid://bshuoq6q34v04::::res://pokemon/GrassStepEffect.gd
 House.tscn::PackedScene/PackedScene::7322937699581099795::1757452605::0::1::::<><><>0<>0<><>::uid://y8ai4k0w31oe::::res://pokemon/Assets/Buildings/house1.png
 LandingDustEffect.gd::GDScript/GDScript::6484517505029902417::1757452605::0::1::::LandingDustEffect<>AnimatedSprite2D<><>0<>0<><>::
 LandingDustEffect.tscn::PackedScene/PackedScene::248183304494692869::1757452605::0::1::::<><><>0<>0<><>::uid://d3uyyicfn62hd::::res://pokemon/Assets/Player/jump_landing_dust.png<>uid://cynfb5vn3x018::::res://pokemon/LandingDustEffect.gd
 LedgeTileMap.tscn::PackedScene/PackedScene::685297262708678984::1757452605::0::1::::<><><>0<>0<><>::uid://wyb41armkdbb::::res://pokemon/Assets/Tilesets/ledge.png
-MapManager.tscn::PackedScene::1338197289746617064::1758744740::0::1::::<><><>0<>0<><>::uid://n2ne5rq237qn::::res://pokemon/map_manager.gd<>uid://bcyx0ktlqeh3p::::res://pokemon/person/player/Player.tscn<>uid://csn2nieibhe5r::::res://pokemon/Menu.tscn
-map_manager.gd::GDScript::968991233461983869::1758744740::0::1::::MapManager<>Node2D<><>0<>0<><>::
-Menu.gd::GDScript/GDScript::9029208916975066974::1757452605::0::1::::<>CanvasLayer<><>0<>0<><>::
-Menu.tscn::PackedScene/PackedScene::6064740464530139621::1757452605::0::1::::<><><>0<>0<><>::uid://c6o0utbr8unbh::::res://pokemon/Assets/UI/menu_box_1.png<>uid://cin1j8ipp24kx::::res://pokemon/Assets/UI/ui_arrow_left_right.png<>uid://d1v20s68ibjvi::::res://pokemon/Menu.gd
+MapManager.tscn::PackedScene::1338197289746617064::1758749434::0::1::::<><><>0<>0<><>::uid://n2ne5rq237qn::::res://pokemon/map_manager.gd<>uid://bcyx0ktlqeh3p::::res://pokemon/person/player/Player.tscn
+map_manager.gd::GDScript::968991233461983869::1758749414::0::1::::MapManager<>Node2D<><>0<>0<><>::
+Menu.tscn::PackedScene::6064740464530139621::1758751489::0::1::::<><><>0<>0<><>::uid://bgi0sav8rl0ue::::res://pokemon/menus/game_menu.tscn<>uid://cin1j8ipp24kx::::res://pokemon/Assets/UI/ui_arrow_left_right.png<>uid://dfxe51rvrieeg::::res://main_menu/background.aseprite<>uid://camg605tj17bw::::res://main_menu/main_menu.gd<>uid://dfsika51djlva::::res://fonts/PixelatedEleganceRegular-ovyAA.ttf
 OaksLab.tscn::PackedScene/PackedScene::6549260518804555689::1757452605::0::1::::<><><>0<>0<><>::uid://bqyl2dnls2tak::::res://pokemon/Assets/Buildings/pallet town/oaks_lab_interior.png<>uid://bcyx0ktlqeh3p::::res://pokemon/person/player/Player.tscn<>uid://38kjnrbrefvg::::res://pokemon/maps/door/door.tscn<>uid://mpypoftmr5ea::::res://pokemon/maps/tileset.tres<>uid://4d84r1d8iayc::::res://pokemon/Assets/Buildings/pallet town/mat.png
 PokemonPartyScreen.gd::GDScript/GDScript::6867935334260562790::1757452605::0::1::::<>Node2D<><>0<>0<><>::
 PokemonPartyScreen.tscn::PackedScene/PackedScene::2584856899421004124::1757452605::0::1::::<><><>0<>0<><>::uid://dx7ywwm8pe86c::::res://pokemon/Assets/UI/Pokemon Party/party_background.png<>uid://4ii3i1aq3xik::::res://pokemon/Assets/UI/Pokemon Party/main_pokemon_background.png<>uid://bp3xyrgydwdfh::::res://pokemon/Assets/Pokemon/Charmander.png<>uid://cy1rb1uob85kc::::res://pokemon/Assets/UI/Pokemon Party/gender_icons.png<>uid://di7detl5etcov::::res://pokemon/Assets/UI/Pokemon Party/healthbar.png<>uid://cagm7tjs5l01e::::res://pokemon/Assets/UI/Pokemon Party/standby_pokemon_background.png<>uid://bbdxr6c1wyhep::::res://pokemon/Assets/Pokemon/Bulbasaur.png<>uid://dvgn7o48uygbh::::res://pokemon/Assets/Pokemon/Squirtle.png<>uid://mmo6k0bgjt4r::::res://pokemon/Assets/Pokemon/Pidgey.png<>uid://dpwa8d5btvw1o::::res://pokemon/Assets/Pokemon/Pikachu.png<>uid://dcfrsiusvr1g1::::res://pokemon/Assets/Pokemon/Onix.png<>uid://cy4wlhwvykhtm::::res://pokemon/Assets/UI/Pokemon Party/exit_background_button.png<>uid://c4345ku8qa335::::res://pokemon/PokemonPartyScreen.gd
@@ -954,8 +955,8 @@ textbox_layer_icon.svg::CompressedTexture2D/CompressedTexture2D::524298069537458
 vn_textbox_layer.gd::GDScript/GDScript::2731656635238004591::1757452605::0::1::::<>DialogicLayoutLayer<><>0<>1<><>::
 vn_textbox_layer.tscn::PackedScene/PackedScene::3551277938196629571::1757452605::0::1::::<><><>0<>0<><>::uid://be6h8rpi2c288::::res://pokemon/dialogic/layout_parts/textbox/vn_textbox_layer.gd<>uid://cdhaim3q2nbcs::::res://pokemon/dialogic/layout_parts/textbox/animations.gd<>uid://nwq24d68wi3b::::res://addons/dialogic/Modules/Text/node_dialog_text.gd<>uid://dkv1pl1c1dq6::::res://pokemon/dialogic/layout_parts/textbox/textbox_default_panel.tres<>uid://b01av035qrrhs::::res://addons/dialogic/Modules/Text/node_type_sound.gd<>uid://3fp4yevmhqqh::::res://addons/dialogic/Modules/Text/node_next_indicator.gd<>uid://d1jhpdjot8nxb::::res://pokemon/dialogic/layout_parts/textbox/autoadvance_indicator.gd<>uid://b0rpqfg4fhebk::::res://pokemon/dialogic/layout_parts/textbox/next.svg<>uid://erbpjandcauc::::res://addons/dialogic/Modules/Text/node_name_label.gd<>uid://m7gyepkysu83::::res://pokemon/dialogic/layout_parts/textbox/vn_textbox_name_label_panel.tres
 vn_textbox_name_label_panel.tres::StyleBoxFlat/StyleBoxFlat::908733606549242590::1757452605::0::1::::<><><>0<>0<><>::
-::res://pokemon/dialogic/styles/::1757453381
-style.tres::Resource/DialogicStyle::1223602260741159501::1757453381::0::1::::<><><>0<>0<><>::uid://c0pdb4cf1ln3o::::res://addons/dialogic/Resources/dialogic_style_layer.gd<>uid://c1k5m0w3r40xf::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_FullBackground/full_background_layer.tscn<>uid://cy1y14inwkplb::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Portraits/vn_portrait_layer.tscn<>uid://cn674foxwedqu::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn<>uid://bquja8jyk8kbr::::res://pokemon/dialogic/layout_parts/textbox/vn_textbox_layer.tscn<>uid://dsbwnp5hegnu3::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Glossary/glossary_popup_layer.tscn<>uid://dhk6j6eb6e3q::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Choices/vn_choice_layer.tscn<>uid://cvgf4c6gg0tsy::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_TextInput/text_input_layer.tscn<>uid://lx24i8fl6uo::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_History/history_layer.tscn<>uid://c1s01w2x7yylv::::res://addons/dialogic/Resources/dialogic_style.gd
+::res://pokemon/dialogic/styles/::1758748001
+style.tres::Resource/DialogicStyle::1223602260741159501::1758748001::0::1::::<><><>0<>0<><>::uid://c0pdb4cf1ln3o::::res://addons/dialogic/Resources/dialogic_style_layer.gd<>uid://c1k5m0w3r40xf::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_FullBackground/full_background_layer.tscn<>uid://cy1y14inwkplb::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Portraits/vn_portrait_layer.tscn<>uid://cn674foxwedqu::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn<>uid://bquja8jyk8kbr::::res://pokemon/dialogic/layout_parts/textbox/vn_textbox_layer.tscn<>uid://dsbwnp5hegnu3::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Glossary/glossary_popup_layer.tscn<>uid://dhk6j6eb6e3q::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_VN_Choices/vn_choice_layer.tscn<>uid://cvgf4c6gg0tsy::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_TextInput/text_input_layer.tscn<>uid://lx24i8fl6uo::::res://addons/dialogic/Modules/DefaultLayoutParts/Layer_History/history_layer.tscn<>uid://c1s01w2x7yylv::::res://addons/dialogic/Resources/dialogic_style.gd
 ::res://pokemon/dialogic/timelines/::1757452605
 test_timeline.dtl::Resource/DialogicTimeline::4317914817701133072::1757452605::0::1::::<><><>0<>0<><>::
 ::res://pokemon/maps/::1758744740
@@ -992,8 +993,9 @@ sign.aseprite::PortableCompressedTexture2D/PortableCompressedTexture2D::21748070
 sign.tscn::PackedScene/PackedScene::1570128965387501364::1757452605::0::1::::<><><>0<>0<><>::uid://d1idjlg7hmple::::res://pokemon/maps/interactable.gd<>uid://58q0wsxapl1v::::res://pokemon/maps/objects/sign/sign.aseprite
 ::res://pokemon/maps/test/::1758744740
 test_map.tscn::PackedScene::2972057525184943543::1758744740::0::1::::<><><>0<>0<><>::uid://bflkcwtm6xvel::::res://pokemon/maps/map.tscn<>uid://bi1wyokysx8p::::res://pokemon/person/npc/trainer/trainer.tscn
-::res://pokemon/menus/::1758745267
-game_menu.tscn::PackedScene::2825618870626664664::1758745267::0::1::::<><><>0<>0<><>::uid://c6o0utbr8unbh::::res://pokemon/Assets/UI/menu_box_1.png<>uid://cin1j8ipp24kx::::res://pokemon/Assets/UI/ui_arrow_left_right.png
+::res://pokemon/menus/::1758749426
+game_menu.gd::GDScript::2252330901072830992::1758749564::0::1::::<>Control<><>0<>0<><>::
+game_menu.tscn::PackedScene::2825618870626664664::1758749417::0::1::::<><><>0<>0<><>::uid://c6o0utbr8unbh::::res://pokemon/Assets/UI/menu_box_1.png<>uid://7dbtcmqd801a::::res://pokemon/menus/game_menu.gd<>uid://cin1j8ipp24kx::::res://pokemon/Assets/UI/ui_arrow_left_right.png
 ::res://pokemon/person/::1758744740
 Person.gd::GDScript::5312439322706887822::1758744740::0::1::::Person<>CharacterBody2D<><>0<>0<><>::
 ::res://pokemon/person/npc/::1758744740

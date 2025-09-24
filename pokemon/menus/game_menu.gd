@@ -2,8 +2,7 @@ extends Control
 
 const PokemonPartyScreen: PackedScene = preload("res://pokemon/PokemonPartyScreen.tscn")
 
-@onready var select_arrow: TextureRect = $Control/NinePatchRect/TextureRect
-@onready var menu: Control = $Control
+@onready var select_arrow: TextureRect = $NinePatchRect/TextureRect
 
 enum ScreenLoaded { NOTHING, JUST_MENU, PARTY_SCREEN, }
 var screen_loaded: int = ScreenLoaded.NOTHING
@@ -11,18 +10,18 @@ var screen_loaded: int = ScreenLoaded.NOTHING
 var selected_option: int = 0
 
 func _ready() -> void:
-	menu.visible = false
+	visible = false
 	select_arrow.position.y = 6 + (selected_option % 6) * 15
 
 func load_party_screen() -> void:
-	menu.visible = false
+	visible = false
 	screen_loaded = ScreenLoaded.PARTY_SCREEN
 	var party_screen := PokemonPartyScreen.instance() as Node2D
 	add_child(party_screen)
 	
 	
 func unload_party_screen() -> void:
-	menu.visible = true
+	visible = true
 	screen_loaded = ScreenLoaded.JUST_MENU
 	remove_child($PokemonPartyScreen)
 
@@ -33,14 +32,14 @@ func _unhandled_input(event: InputEvent) -> void:
 				var player := Utils.get_player()
 				if !player.is_moving:
 					player.set_physics_process(false)
-					menu.visible = true
+					visible = true
 					screen_loaded = ScreenLoaded.JUST_MENU
 		
 		ScreenLoaded.JUST_MENU:
 			if event.is_action_pressed("menu") or event.is_action_pressed("x"):
 				var player := Utils.get_player()
 				player.set_physics_process(true)
-				menu.visible = false
+				visible = false
 				screen_loaded = ScreenLoaded.NOTHING
 				
 			elif event.is_action_pressed("ui_down"):

@@ -1,15 +1,72 @@
-[gd_scene load_steps=5 format=3 uid="uid://dth36rslaan6p"]
+[gd_scene load_steps=10 format=3 uid="uid://dth36rslaan6p"]
 
 [ext_resource type="Script" uid="uid://dipmlkh8vl7xq" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://tch6cn6nleaq" path="res://pokemon/MapManager.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bgi0sav8rl0ue" path="res://pokemon/menus/game_menu.tscn" id="3_kek77"]
 [ext_resource type="AudioStream" uid="uid://b2hwmrxcnsefj" path="res://pokemon/audio/music/littleroot.mp3" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://d35yj70vfpnj0" path="res://utilities/saver_loader.gd" id="4_1bvp3"]
+[ext_resource type="Script" path="res://main_menu/main_menu.gd" id="4_4c57u"]
+[ext_resource type="Texture2D" path="res://main_menu/background.aseprite" id="5_efxa6"]
+[ext_resource type="FontFile" uid="uid://dfsika51djlva" path="res://fonts/PixelatedEleganceRegular-ovyAA.ttf" id="6_dg77c"]
+[ext_resource type="Texture2D" uid="uid://cin1j8ipp24kx" path="res://pokemon/Assets/UI/ui_arrow_left_right.png" id="7_ycdy4"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
 
 [node name="MapManager" parent="." instance=ExtResource("2_1bvp3")]
 unique_name_in_owner = true
+
+[node name="MenuManager" type="CanvasLayer" parent="."]
+
+[node name="GameMenu" parent="MenuManager" instance=ExtResource("3_kek77")]
+visible = false
+
+[node name="MainMenu" type="Control" parent="MenuManager"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_4c57u")
+
+[node name="ColorRect" type="TextureRect" parent="MenuManager/MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_efxa6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuManager/MainMenu"]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 64.0
+offset_right = 232.0
+offset_bottom = 268.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MenuManager/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_dg77c")
+theme_override_font_sizes/normal_font_size = 9
+text = "New Game"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MenuManager/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_dg77c")
+theme_override_font_sizes/normal_font_size = 9
+text = "Quit"
+fit_content = true
+
+[node name="Arrow" type="TextureRect" parent="MenuManager/MainMenu"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 63.0
+offset_right = 158.0
+offset_bottom = 73.0
+texture = ExtResource("7_ycdy4")
 
 [node name="AudioManager" type="Node" parent="."]
 
@@ -22,3 +79,5 @@ parameters/looping = true
 
 [node name="SaverLoader" type="Node" parent="Utilities"]
 script = ExtResource("4_1bvp3")
+
+[connection signal="new_game_selected" from="MenuManager/MainMenu" to="." method="_on_main_menu_new_game_selected"]

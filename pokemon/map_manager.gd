@@ -19,7 +19,8 @@ var transition_type: int = TransitionType.NEW_MAP
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	load_new_map(initial_map_filepath)
+	pass
+	# load_new_map(initial_map_filepath)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("load_test_map"):
